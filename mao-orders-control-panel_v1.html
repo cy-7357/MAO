@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAOMAO-訂單管理</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mao.css">
+    <link rel="stylesheet" href="css/mao_web.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <style>
+        .search-bar {
+            background-color: var(--maocolor08);
+            border: 1px solid var(--maocolor06);
+            color: var(--maocolor05);
+        }
+
+        .search-bar::placeholder {
+            color: var(--maocolor07);
+        }
+
+        .search-bar:focus {
+            border-color: var(--maocolor04);
+            box-shadow: 0 0 0 0.2rem rgba(201, 168, 141, 0.25);
+        }
+
+        .search-bar+.btn {
+            color: var(--maocolor05);
+        }
+
+        .search-bar+.btn:hover {
+            color: var(--maocolor04);
+        }
+
+        #order-history {
+            background-color: var(--maocolor02);
+            padding: 40px 20px;
+        }
+
+        #order-history .accordion-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        #order-history h2 {
+            color: var(--maocolor05);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .accordion-item {
+            background-color: var(--maocolor08);
+            border: 1px solid var(--maocolor06);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-item:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .accordion-button {
+            color: var(--maocolor05);
+            background-color: var(--maocolor08);
+            padding: 20px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: var(--maocolor04);
+            background-color: var(--maocolor02);
+            box-shadow: none;
+        }
+
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: rgba(201, 168, 141, 0.25);
+        }
+
+        .accordion-button::after {
+            background-image: none;
+            content: '\f107';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--maocolor07);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-button:not(.collapsed)::after {
+            transform: rotate(-180deg);
+            color: var(--maocolor04);
+        }
+
+        .accordion-body {
+            padding: 20px 25px;
+            color: var(--maocolor05);
+            background-color: var(--maocolor08);
+        }
+
+        .feature-icon {
+            margin-right: 12px;
+            color: var(--maocolor04);
+            font-size: 1.2rem;
+        }
+
+        .badge-custom {
+            margin-left: 10px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+
+        .progress {
+            height: 8px;
+            margin-top: 15px;
+            border-radius: 4px;
+            background-color: var(--maocolor07);
+        }
+
+        .list-group-item {
+            border: none;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            color: var(--maocolor05);
+        }
+
+        .status-icon {
+            margin-right: 10px;
+            color: var(--maocolor04);
+        }
+
+        .order-summary {
+            background-color: var(--maocolor08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .order-actions {
+            border-top: 1px dashed var(--maocolor06);
+            padding-top: 1rem;
+            text-align: right;
+        }
+
+        .table-responsive {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table th {
+            background-color: var(--maocolor01);
+            color: var(--maocolor05);
+            font-weight: 600;
+        }
+
+        .table tfoot tr:last-child td {
+            border-bottom: 2px solid var(--maocolor04);
+            font-size: 1.1rem;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(201, 168, 141, 0.1);
+        }
+
+        .status-select {
+            min-width: 120px;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--maocolor03), var(--maocolor04));
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: var(--maocolor04);
+            box-shadow: 0 6px 20px rgba(201, 168, 141, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 768px) {
+            .order-summary .row>div {
+                margin-bottom: 1rem;
+            }
+
+            .table-responsive {
+                font-size: 0.9rem;
+            }
+
+            .status-select {
+                width: 100%;
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-01">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">MAOMAO控制台</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                會員管理
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="mao-users-control-panel_v1.html#registerModal">會員建檔</a>
+                                </li>
+                                <li><a class="dropdown-item" href="mao-users-control-panel_v1.html">會員列表</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                商品管理
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="productDropdown">
+                                <li><a class="dropdown-item" href="mao-products-C-control-panel_v1.html">商品建檔</a></li>
+                                <li><a class="dropdown-item" href="mao-products-R-control-panel_v1.html">商品列表</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="orderDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                訂單管理
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="orderDropdown">
+                                <li><a class="dropdown-item active" href="mao-orders-control-panel_v1.html">訂單列表</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#">退貨處理</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="mao-chart-control-panel_v1.html"
+                                id="reportDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                報表分析
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="reportDropdown">
+                                <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#orders">銷售報表</a></li>
+                                <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#users">會員分析</a></li>
+                                <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#products">商品分析</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="Mao-index_v1.html">回首頁</a></li>
+                    </ul>
+                    <div class="position-relative ms-auto">
+                        <input type="text" class="form-control rounded-pill search-bar pe-5" placeholder="搜尋訂單..."
+                            aria-label="Search" v-model="searchQuery">
+                        <button class="btn position-absolute top-50 end-0 translate-middle-y" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+
+        <section id="order-history" class="py-5">
+            <div class="container accordion-container">
+                <h2 class="text-center mb-4 fw-bold">訂單列表</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <select v-model="selectedStatus" class="form-control text-center">
+                            <option value="全部">全部狀態</option>
+                            <option value="已下單">已下單</option>
+                            <option value="已出貨">已出貨</option>
+                            <option value="已完成">已完成</option>
+                            <option value="已取消">已取消</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <select v-model="selectedPaymentStatus" class="form-control text-center">
+                            <option value="全部">全部付款狀態</option>
+                            <option value="已付款">已付款</option>
+                            <option value="待付款">待付款</option>
+                            <option value="付款失敗">付款失敗</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <select v-model="selectedSort" class="form-control text-center">
+                            <option value="newest">排序 : 新到舊</option>
+                            <option value="oldest">排序 : 舊到新</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div v-if="isLoading" class="loading-spinner">
+                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                        <span class="visually-hidden">載入中...</span>
+                    </div>
+                </div>
+
+                <div v-else-if="loadError" class="error-message">
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        {{ loadError }}
+                        <button class="btn btn-sm btn-outline-danger ms-3" @click="fetchAllData">
+                            <i class="fas fa-sync-alt me-1"></i>重新載入
+                        </button>
+                    </div>
+                </div>
+
+                <div v-else class="accordion" id="orderHistoryAccordion">
+                    <div class="accordion-item" v-for="order in filteredOrders" :key="order.Order_id">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                :data-bs-target="'#collapseOrder' + order.Order_id"
+                                :aria-controls="'collapseOrder' + order.Order_id" aria-expanded="false">
+                                <i class="fa-solid fa-box feature-icon"></i>
+                                訂單 #{{ order.Order_id }} - {{ formatDate(order.Created_at) }}
+                                <span :class="getStatusBadgeClass(order.Status)">{{ order.Status }}</span>
+                            </button>
+                        </h2>
+                        <div :id="'collapseOrder' + order.Order_id" class="accordion-collapse collapse"
+                            data-bs-parent="#orderHistoryAccordion">
+                            <div class="accordion-body">
+                                <div class="progress">
+                                    <div :class="getProgressBarClass(order.Status)" role="progressbar"
+                                        :style="'width: ' + getProgressWidth(order.Status) + '%'"></div>
+                                </div>
+
+                                <div class="order-summary">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><strong><i class="fas fa-user me-2"></i>會員名稱：</strong>{{
+                                                getUsername(order.User_id) }}</p>
+                                            <p><strong><i class="fas fa-money-bill-wave me-2"></i>總金額：</strong>{{
+                                                formatPrice(order.Total_price) }} 元</p>
+                                            <p><strong><i class="fas fa-credit-card me-2"></i>付款狀態：</strong>
+                                                <select v-model="order.Payment_status"
+                                                    class="form-select status-select d-inline-block w-auto"
+                                                    @change="updateOrderStatus(order)">
+                                                    <option value="已付款">已付款</option>
+                                                    <option value="待付款">待付款</option>
+                                                    <option value="付款失敗">付款失敗</option>
+                                                </select>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><strong><i class="fas fa-map-marker-alt me-2"></i>配送地址：</strong>{{
+                                                order.Shipping_address || '未提供' }}</p>
+                                            <p><strong><i class="fas fa-phone me-2"></i>聯絡電話：</strong>{{
+                                                order.Contact_phone || '未提供' }}</p>
+                                            <p><strong><i class="fas fa-truck me-2"></i>訂單狀態：</strong>
+                                                <select v-model="order.Status"
+                                                    class="form-select status-select d-inline-block w-auto"
+                                                    @change="updateOrderStatus(order)">
+                                                    <option value="已下單">已下單</option>
+                                                    <option value="已出貨">已出貨</option>
+                                                    <option value="已完成">已完成</option>
+                                                    <option value="已取消">已取消</option>
+                                                </select>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="mt-4 mb-3"><i class="fas fa-list-alt me-2"></i>訂單明細</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-sm">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>商品</th>
+                                                    <th class="text-center">數量</th>
+                                                    <th class="text-center">租賃天數</th>
+                                                    <th class="text-end">單價</th>
+                                                    <th class="text-end">小計</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="item in order.details" :key="item.Detail_id">
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <img :src="getProductImage(item.Product_id)" alt="商品圖片"
+                                                                class="me-2"
+                                                                style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                                                            <div>{{ item.Product_name || '未知商品' }}</div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">{{ item.Quantity }}</td>
+                                                    <td class="text-center">{{ item.Rental_days }}</td>
+                                                    <td class="text-end">{{ formatPrice(Math.round(item.Subtotal /
+                                                        (item.Quantity * item.Rental_days))) }} 元/天</td>
+                                                    <td class="text-end">{{ formatPrice(item.Subtotal) }} 元</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="4" class="text-end"><strong>商品總額：</strong></td>
+                                                    <td class="text-end"><strong>{{
+                                                            formatPrice(calculateOrderSubtotal(order)) }} 元</strong>
+                                                    </td>
+                                                </tr>
+                                                <tr v-if="order.Discount_applied > 0">
+                                                    <td colspan="4" class="text-end text-success"><strong>折扣金額：</strong>
+                                                    </td>
+                                                    <td class="text-end text-success"><strong>-{{
+                                                            formatPrice(order.Discount_applied) }} 元</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" class="text-end"><strong>應付金額：</strong></td>
+                                                    <td class="text-end"><strong>{{ formatPrice(order.Total_price) }}
+                                                            元</strong></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="!isLoading && !loadError && filteredOrders.length === 0"
+                        class="text-center text-muted py-4">
+                        <p>目前沒有符合條件的訂單。</p>
+                        <button class="btn btn-outline-primary mt-2" @click="resetFilters">
+                            <i class="fas fa-filter me-1"></i>重置篩選條件
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <button id="back-to-top" class="btn back-to-top" @click="scrollToTop">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+    </div>
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js">	</script>
+    <script src="js/wow.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/mao-auth.js"></script>
+    <script>
+        const App = {
+            data() {
+                return {
+                    orders: [],
+                    users: [],
+                    products: [],
+                    searchQuery: "", 
+                    selectedStatus: "全部",
+                    selectedPaymentStatus: "全部",
+                    selectedSort: "newest",
+                    isLoading: true,
+                    loadError: null
+                };
+            },
+            computed: {
+                filteredOrders() {
+                    let filtered = [...this.orders];
+
+                    if (this.selectedStatus !== "全部") {
+                        filtered = filtered.filter(order => order.Status === this.selectedStatus);
+                    }
+
+                    if (this.selectedPaymentStatus !== "全部") {
+                        filtered = filtered.filter(order => order.Payment_status === this.selectedPaymentStatus);
+                    }
+
+                    if (this.searchQuery.trim() !== "") {
+                        const query = this.searchQuery.toLowerCase().trim();
+                        filtered = filtered.filter(order =>
+                            String(order.Order_id).includes(query) ||
+                            this.getUsername(order.User_id).toLowerCase().includes(query) ||
+                            (order.Shipping_address && order.Shipping_address.toLowerCase().includes(query)) ||
+                            String(order.Contact_phone || '').includes(query)
+                        );
+                    }
+
+                    if (this.selectedSort === "newest") {
+                        filtered.sort((a, b) => new Date(b.Created_at) - new Date(a.Created_at));
+                    } else if (this.selectedSort === "oldest") {
+                        filtered.sort((a, b) => new Date(a.Created_at) - new Date(b.Created_at));
+                    }
+
+                    return filtered;
+                }
+            },
+            mounted() {
+                this.fetchAllData();
+                window.addEventListener('scroll', this.handleScroll);
+            },
+            beforeUnmount() {
+                window.removeEventListener('scroll', this.handleScroll);
+            },
+            methods: {
+                async fetchAllData() {
+                    this.isLoading = true;
+                    this.loadError = null;
+                    try {
+                        const [ordersRes, usersRes, productsRes] = await Promise.all([
+                            axios.get('mao-orders-control-api_v1.php?action=getalldata'),
+                            axios.get('mao-users-control-api_v1.php?action=getalldata'),
+                            axios.get('mao-products-control-api_v1.php?action=getalldata')
+                        ]);
+
+                        this.orders = Array.isArray(ordersRes.data?.data) ? ordersRes.data.data : [];
+                        if (!ordersRes.data?.state) {
+                            throw new Error(ordersRes.data?.message || '獲取訂單數據失敗');
+                        }
+
+                        this.users = Array.isArray(usersRes.data?.data) ? usersRes.data.data : [];
+                        this.products = Array.isArray(productsRes.data?.data) ? productsRes.data.data : [];
+                    } catch (error) {
+                        this.loadError = '數據載入失敗: ' + (error.message || '請檢查網絡連接或後端服務');
+                    } finally {
+                        this.isLoading = false;
+                    }
+                },
+                async updateOrderStatus(order) {
+                    try {
+                        const response = await axios.post('mao-orders-control-api_v1.php?action=update', {
+                            order_id: order.Order_id,
+                            status: order.Status,
+                            payment_status: order.Payment_status,
+                            role: 'admin'
+                        });
+                        if (response.data.state) {
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                icon: 'success',
+                                title: '訂單狀態更新成功'
+                            });
+                            await this.fetchAllData();
+                        } else {
+                            throw new Error(response.data.message || '更新失敗');
+                        }
+                    } catch (error) {
+                        Swal.fire({
+                            title: '錯誤',
+                            text: '更新訂單狀態失敗: ' + (error.message || '請稍後再試'),
+                            icon: 'error'
+                        });
+                        this.fetchAllData();
+                    }
+                },
+                getUsername(userId) {
+                    if (!userId) return '未知會員';
+                    const user = this.users.find(u => String(u.User_id) === String(userId));
+                    return user?.Username || '未知會員';
+                },
+                getProductImage(productId) {
+                    if (!productId) return 'images/default-product.jpg';
+                    const product = this.products.find(p => String(p.Product_id) === String(productId));
+                    return product?.Photo ? `uploads/${product.Photo}` : 'images/default-product.jpg';
+                },
+                calculateOrderSubtotal(order) {
+                    if (!order.details || !Array.isArray(order.details)) return 0;
+                    return order.details.reduce((total, item) => total + (Number(item.Subtotal) || 0), 0);
+                },
+                formatDate(dateString) {
+                    if (!dateString) return '未知日期';
+                    try {
+                        const date = new Date(dateString);
+                        return date.toLocaleDateString('zh-TW', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    } catch (error) {
+                        return '無效日期';
+                    }
+                },
+                formatPrice(price) {
+                    const num = Number(price);
+                    return isNaN(num) ? '0' : num.toLocaleString('zh-TW', { minimumFractionDigits: 0 });
+                },
+                getStatusBadgeClass(status) {
+                    switch (status) {
+                        case '已完成': return 'badge bg-05 tx-03 badge-custom';
+                        case '已出貨': return 'badge bg-04 tx-02 badge-custom';
+                        case '已下單': return 'badge bg-03 tx-05 badge-custom';
+                        case '已取消': return 'badge bg-secondary text-light badge-custom';
+                        default: return 'badge badge-custom';
+                    }
+                },
+                getProgressBarClass(status) {
+                    switch (status) {
+                        case '已完成': return 'progress-bar bg-05';
+                        case '已出貨': return 'progress-bar bg-04';
+                        case '已下單': return 'progress-bar bg-03';
+                        case '已取消': return 'progress-bar bg-secondary';
+                        default: return 'progress-bar bg-info';
+                    }
+                },
+                getProgressWidth(status) {
+                    switch (status) {
+                        case '已完成': return 100;
+                        case '已出貨': return 75;
+                        case '已下單': return 25;
+                        case '已取消': return 0;
+                        default: return 0;
+                    }
+                },
+                resetFilters() {
+                    this.selectedStatus = "全部";
+                    this.selectedPaymentStatus = "全部";
+                    this.searchQuery = "";
+                },
+                scrollToTop() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                },
+                handleScroll() {
+                    const backToTopButton = document.getElementById('back-to-top');
+                    if (window.scrollY > 300) {
+                        backToTopButton.classList.add('visible');
+                    } else {
+                        backToTopButton.classList.remove('visible');
+                    }
+                }
+            }
+        };
+
+        const app = Vue.createApp(App);
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

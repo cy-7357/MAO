@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taipei Hotel Data</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="css/mao.css">
+</head>
+
+<body class="bg-02">
+    <div class="banner bg-cover" style="background-image: url(images/photo07.jpg); height: 280px;">
+        <div class="display-2 fw-900 text-white p-5">Taipei Hotel Data</div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <select name="" id="regionlist" class="form-select form-select-lg" style="margin-top: -15px;">
+                    <option value="">xxxx</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2" style="height: 72vh;">
+            <div id="map" class="bg-01 rounded-2 "></div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="js/leaflet-color-markers.js"></script>
+    <script src="js/mao-auth.js"></script>
+    <script>
+        var regionTitle = [];
+        var counter = [];
+        var regionData = [];
+        var map;
+        $(function () {
+            map = L.map('map').setView([24.1714198, 120.60858], 13);
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            $.ajax({
+                type: "GET",
+                url: "20250213-taipeiHotel-api.php?action=hoteldata",
+                dataType: "json",
+                async: false,
+                success: showdata,
+                error: function () {
+                    Swal.fire({
+                        title: "API 介接錯誤",
+                        text: "20250213-taipeiHotel-api.php?action=hoteldata",
+                        icon: "error"
+                    });
+                }
+            });
+
+            $("#regionlist").empty();
+            var strHTML = `<option value="" disabled selected class="text-center">--- 請選擇行政區 ---</option>`;
+            $("#regionlist").append(strHTML);
+            regionTitle.forEach(function (item) {
+                var strHTML = `<option value="${item}">${item} ( ${regionData[counter[item]].length} )</option>`;
+                $("#regionlist").append(strHTML);
+            });
+
+            $("#regionlist").change(function () {
+                removeMarker();
+                $("#hotellist").empty();
+                regionData[counter[$(this).val()]].forEach(function (item, key) {
+                    if (key == 0) {
+                        map.panTo([item.Y, item.X]);
+                    }
+                    var popupHTML = `<div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="h3">飯店: ${item.name}</div>
+                                            <div class="h3">電話: ${item.tel}</div>
+                                            <div class="h3">地址: ${item.display_addr}</div>
+                                        </div>
+                                    </div>`;
+                    L.marker([item.Y, item.X], { icon: FishBlueIcon }).addTo(map).bindPopup(popupHTML);
+                });
+            });
+        });
+
+        function showdata(data) {
+            data.data.forEach(function (item) {
+                getRegion = item.display_addr.substring(0, item.display_addr.indexOf("區", 0) + 1);
+                if (counter[getRegion] == undefined) {
+                    counter[getRegion] = regionData.length;
+                    regionData.push(new Array());
+                    regionTitle[counter[getRegion]] = getRegion;
+                }
+                regionData[counter[getRegion]].push(item);
+            });
+            console.log(regionTitle);
+            console.log(counter);
+            console.log(regionData);
+        }
+
+        function removeMarker() {
+            map.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    map.removeLayer(layer);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

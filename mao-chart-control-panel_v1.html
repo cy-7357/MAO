@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAOMAO-報表分析</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mao.css">
+    <link rel="stylesheet" href="css/mao_web.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--maocolor03), var(--maocolor04));
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: var(--maocolor04);
+            box-shadow: 0 6px 20px rgba(201, 168, 141, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chart-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        .chart-col {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-01">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">MAOMAO控制台</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">會員管理</a>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="mao-users-control-panel_v1.html#registerModal">會員建檔</a></li><li><a class="dropdown-item" href="mao-users-control-panel_v1.html">會員列表</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">商品管理</a>
+                            <ul class="dropdown-menu" aria-labelledby="productDropdown">
+                                <li><a class="dropdown-item" href="mao-products-C-control-panel_v1.html">商品建檔</a></li>
+                                <li><a class="dropdown-item" href="mao-products-R-control-panel_v1.html">商品列表</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="orderDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">訂單管理</a>
+                            <ul class="dropdown-menu" aria-labelledby="orderDropdown">
+                                <li><a class="dropdown-item" href="mao-orders-control-panel_v1.html">訂單列表</a></li>
+                                <li><a class="dropdown-item" href="#">退貨處理</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="mao-chart-control-panel_v1.html" id="reportDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">報表分析</a>
+                            <ul class="dropdown-menu" aria-labelledby="reportDropdown">
+                                <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#orders">銷售報表</a></li>
+                                <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#users">會員分析</a></li>
+                                <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#products">商品分析</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="Mao-index_v1.html">回首頁</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container my-5">
+            <h1 class="text-center mb-5">報表分析</h1>
+
+            <section id="orders" class="mb-5">
+                <h2>銷售報表</h2>
+                <div v-if="isLoading" class="loading-spinner">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">載入中...</span>
+                    </div>
+                </div>
+                <div v-else-if="loadError" class="error-message">
+                    {{ loadError }} <button class="btn btn-sm btn-outline-danger" @click="fetchAllData">重新載入</button>
+                </div>
+                <div v-else>
+                    <div class="chart-row">
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="salesTrendChart"></canvas></div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="orderStatusChart"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="paymentStatusChart"></canvas></div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="discountTrendChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="users" class="mb-5">
+                <h2>會員分析</h2>
+                <div v-if="isLoading" class="loading-spinner">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">載入中...</span>
+                    </div>
+                </div>
+                <div v-else-if="loadError" class="error-message">
+                    {{ loadError }} <button class="btn btn-sm btn-outline-danger" @click="fetchAllData">重新載入</button>
+                </div>
+                <div v-else>
+                    <div class="chart-row">
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="userLevelChart"></canvas></div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="userRegisterTrendChart"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="regionDistributionChart"></canvas></div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="activeUsersChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="products" class="mb-5">
+                <h2>商品分析</h2>
+                <div v-if="isLoading" class="loading-spinner">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">載入中...</span>
+                    </div>
+                </div>
+                <div v-else-if="loadError" class="error-message">
+                    {{ loadError }} <button class="btn btn-sm btn-outline-danger" @click="fetchAllData">重新載入</button>
+                </div>
+                <div v-else>
+                    <div class="chart-row">
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="productCategoryChart"></canvas></div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="priceRangeChart"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="productStatusChart"></canvas></div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-container"><canvas id="topProductsChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <button id="back-to-top" class="btn back-to-top" @click="scrollToTop">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+    </div>
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js">	</script>
+    <script src="js/wow.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/mao-auth.js"></script>
+    <script>
+        const App = {
+            data() {
+                return {
+                    orders: [],
+                    users: [],
+                    products: [],
+                    isLoading: true,
+                    loadError: null,
+                    charts: {}
+                };
+            },
+            mounted() {
+                this.fetchAllData();
+                window.addEventListener('scroll', this.handleScroll);
+            },
+            beforeUnmount() {
+                window.removeEventListener('scroll', this.handleScroll);
+            },
+            methods: {
+                async fetchAllData() {
+                    this.isLoading = true;
+                    this.loadError = null;
+                    try {
+                        const [ordersRes, usersRes, productsRes] = await Promise.all([
+                            axios.get('mao-orders-control-api_v1.php?action=getalldata'),
+                            axios.get('mao-users-control-api_v1.php?action=getalldata'),
+                            axios.get('mao-products-control-api_v1.php?action=getalldata')
+                        ]);
+
+                        this.orders = Array.isArray(ordersRes.data?.data) ? ordersRes.data.data : [];
+                        this.users = Array.isArray(usersRes.data?.data) ? usersRes.data.data : [];
+                        this.products = Array.isArray(productsRes.data?.data) ? productsRes.data.data : [];
+
+                        if (!this.orders.length && !this.users.length && !this.products.length) {
+                            throw new Error('無可用資料');
+                        }
+                    } catch (error) {
+                        this.loadError = '無法載入資料，請檢查網絡或後端服務';
+                    } finally {
+                        this.isLoading = false;
+                        await this.$nextTick();
+                        if (!this.loadError) {
+                            this.renderCharts();
+                        }
+                    }
+                },
+                renderCharts() {
+                    const canvases = {
+                        salesTrend: document.getElementById('salesTrendChart'),
+                        orderStatus: document.getElementById('orderStatusChart'),
+                        paymentStatus: document.getElementById('paymentStatusChart'),
+                        discountTrend: document.getElementById('discountTrendChart'),
+                        userLevel: document.getElementById('userLevelChart'),
+                        userRegisterTrend: document.getElementById('userRegisterTrendChart'),
+                        regionDistribution: document.getElementById('regionDistributionChart'),
+                        activeUsers: document.getElementById('activeUsersChart'),
+                        productCategory: document.getElementById('productCategoryChart'),
+                        priceRange: document.getElementById('priceRangeChart'),
+                        productStatus: document.getElementById('productStatusChart'),
+                        topProducts: document.getElementById('topProductsChart')
+                    };
+
+                    if (Object.values(canvases).some(canvas => !canvas)) {
+                        this.loadError = '頁面渲染錯誤，請重新載入';
+                        return;
+                    }
+
+                    Object.values(this.charts).forEach(chart => chart.destroy());
+                    this.charts = {};
+
+                    // 定義具體 HEX 配色
+                    const colors = {
+                        primary: '#C9A88D',      // 稍深的奶茶色 (--maocolor04)
+                        secondary: '#D9C2A7',    // 淺棕色 (--maocolor06)
+                        accent: '#7FC6A6',       // 成功綠色
+                        muted: '#B0A8A0',        // 淺灰色 (--maocolor07)
+                        background: '#F0E8D9',   // 米色 (--maocolor08)
+                        text: '#5C4033'          // 深咖啡色 (--maocolor05)
+                    };
+
+                    // 銷售報表
+                    const salesTrendData = this.calculateSalesTrend();
+                    if (salesTrendData.labels.length) {
+                        this.charts.salesTrend = new Chart(canvases.salesTrend, {
+                            type: 'line',
+                            data: {
+                                labels: salesTrendData.labels,
+                                datasets: [{
+                                    label: '銷售總額 (元)',
+                                    data: salesTrendData.values,
+                                    borderColor: colors.primary,
+                                    backgroundColor: 'rgba(201, 168, 141, 0.4)', // 40% 透明度
+                                    fill: true
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
+                    }
+
+                    const orderStatusData = this.calculateOrderStatus();
+                    if (orderStatusData.labels.length) {
+                        this.charts.orderStatus = new Chart(canvases.orderStatus, {
+                            type: 'doughnut',
+                            data: {
+                                labels: orderStatusData.labels,
+                                datasets: [{
+                                    data: orderStatusData.values,
+                                    backgroundColor: [colors.primary, colors.secondary, colors.accent, colors.muted]
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
+                    }
+
+                    const paymentStatusData = this.calculatePaymentStatus();
+                    if (paymentStatusData.labels.length) {
+                        this.charts.paymentStatus = new Chart(canvases.paymentStatus, {
+                            type: 'bar',
+                            data: {
+                                labels: paymentStatusData.labels,
+                                datasets: [{
+                                    label: '訂單數量',
+                                    data: paymentStatusData.values,
+                                    backgroundColor: 'rgba(217, 194, 167, 0.6)', // 60% 透明度
+                                    borderColor: colors.secondary,
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                        });
+                    }
+
+                    const discountTrendData = this.calculateDiscountTrend();
+                    if (discountTrendData.labels.length) {
+                        this.charts.discountTrend = new Chart(canvases.discountTrend, {
+                            type: 'line',
+                            data: {
+                                labels: discountTrendData.labels,
+                                datasets: [{
+                                    label: '折扣金額 (元)',
+                                    data: discountTrendData.values,
+                                    borderColor: colors.accent,
+                                    backgroundColor: 'rgba(127, 198, 166, 0.4)', // 40% 透明度
+                                    fill: true
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
+                    }
+
+                    const userLevelData = this.calculateUserLevels();
+                    if (userLevelData.labels.length) {
+                        this.charts.userLevel = new Chart(canvases.userLevel, {
+                            type: 'pie',
+                            data: {
+                                labels: userLevelData.labels,
+                                datasets: [{
+                                    data: userLevelData.values,
+                                    backgroundColor: [colors.primary, colors.secondary, colors.accent, colors.muted]
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
+                    }
+
+                    const userRegisterTrendData = this.calculateUserRegisterTrend();
+                    if (userRegisterTrendData.labels.length) {
+                        this.charts.userRegisterTrend = new Chart(canvases.userRegisterTrend, {
+                            type: 'line',
+                            data: {
+                                labels: userRegisterTrendData.labels,
+                                datasets: [{
+                                    label: '新會員數量',
+                                    data: userRegisterTrendData.values,
+                                    borderColor: colors.secondary,
+                                    backgroundColor: 'rgba(217, 194, 167, 0.4)', // 40% 透明度
+                                    fill: true
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
+                    }
+
+                    const regionDistributionData = this.calculateRegionDistribution();
+                    if (regionDistributionData.labels.length) {
+                        this.charts.regionDistribution = new Chart(canvases.regionDistribution, {
+                            type: 'bar',
+                            data: {
+                                labels: regionDistributionData.labels,
+                                datasets: [{
+                                    label: '會員數量',
+                                    data: regionDistributionData.values,
+                                    backgroundColor: 'rgba(201, 168, 141, 0.6)', // 60% 透明度
+                                    borderColor: colors.primary,
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                        });
+                    }
+
+                    const activeUsersData = this.calculateActiveUsers();
+                    if (activeUsersData.labels.length) {
+                        this.charts.activeUsers = new Chart(canvases.activeUsers, {
+                            type: 'doughnut',
+                            data: {
+                                labels: activeUsersData.labels,
+                                datasets: [{
+                                    data: activeUsersData.values,
+                                    backgroundColor: [colors.accent, colors.muted]
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
+                    }
+
+                    const productCategoryData = this.calculateProductCategories();
+                    if (productCategoryData.labels.length) {
+                        this.charts.productCategory = new Chart(canvases.productCategory, {
+                            type: 'bar',
+                            data: {
+                                labels: productCategoryData.labels,
+                                datasets: [{
+                                    label: '銷售額 (元)',
+                                    data: productCategoryData.values,
+                                    backgroundColor: 'rgba(201, 168, 141, 0.6)', // 60% 透明度
+                                    borderColor: colors.primary,
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                        });
+                    }
+
+                    const priceRangeData = this.calculatePriceRange();
+                    if (priceRangeData.labels.length) {
+                        this.charts.priceRange = new Chart(canvases.priceRange, {
+                            type: 'bar',
+                            data: {
+                                labels: priceRangeData.labels,
+                                datasets: [{
+                                    label: '商品數量',
+                                    data: priceRangeData.values,
+                                    backgroundColor: 'rgba(217, 194, 167, 0.6)', // 60% 透明度
+                                    borderColor: colors.secondary,
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                        });
+                    }
+
+                    const productStatusData = this.calculateProductStatus();
+                    if (productStatusData.labels.length) {
+                        this.charts.productStatus = new Chart(canvases.productStatus, {
+                            type: 'doughnut',
+                            data: {
+                                labels: productStatusData.labels,
+                                datasets: [{
+                                    data: productStatusData.values,
+                                    backgroundColor: [colors.accent, colors.muted]
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
+                    }
+
+                    const topProductsData = this.calculateTopProducts();
+                    if (topProductsData.labels.length) {
+                        this.charts.topProducts = new Chart(canvases.topProducts, {
+                            type: 'bar',
+                            data: {
+                                labels: topProductsData.labels,
+                                datasets: [{
+                                    label: '銷售數量',
+                                    data: topProductsData.values,
+                                    backgroundColor: 'rgba(201, 168, 141, 0.6)', // 60% 透明度
+                                    borderColor: colors.primary,
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', scales: { x: { beginAtZero: true } } }
+                        });
+                    }
+                },
+                calculateSalesTrend() {
+                    const salesByMonth = {};
+                    this.orders.filter(o => o.Status === '已完成').forEach(order => {
+                        const date = new Date(order.Created_at);
+                        if (isNaN(date.getTime())) return;
+                        const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                        salesByMonth[month] = (salesByMonth[month] || 0) + Number(order.Total_price || 0);
+                    });
+                    return { labels: Object.keys(salesByMonth).sort(), values: Object.values(salesByMonth) };
+                },
+                calculateOrderStatus() {
+                    const statusCount = { '已下單': 0, '已出貨': 0, '已完成': 0, '已取消': 0 };
+                    this.orders.forEach(order => statusCount[order.Status] = (statusCount[order.Status] || 0) + 1);
+                    return { labels: Object.keys(statusCount), values: Object.values(statusCount) };
+                },
+                calculatePaymentStatus() {
+                    const paymentCount = { '已付款': 0, '待付款': 0, '付款失敗': 0 };
+                    this.orders.forEach(order => paymentCount[order.Payment_status] = (paymentCount[order.Payment_status] || 0) + 1);
+                    return { labels: Object.keys(paymentCount), values: Object.values(paymentCount) };
+                },
+                calculateDiscountTrend() {
+                    const discountByMonth = {};
+                    this.orders.filter(o => o.Discount_applied > 0).forEach(order => {
+                        const date = new Date(order.Created_at);
+                        if (isNaN(date.getTime())) return;
+                        const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                        discountByMonth[month] = (discountByMonth[month] || 0) + Number(order.Discount_applied || 0);
+                    });
+                    return { labels: Object.keys(discountByMonth).sort(), values: Object.values(discountByMonth) };
+                },
+                calculateUserLevels() {
+                    const levels = { '一般會員': 0, 'VIP': 0, 'VVIP': 0, '管理員': 0 };
+                    this.users.forEach(user => {
+                        if (user.Level == 10) levels['一般會員']++;
+                        else if (user.Level == 20) levels['VIP']++;
+                        else if (user.Level == 30) levels['VVIP']++;
+                        else if (user.Level == 100) levels['管理員']++;
+                    });
+                    return { labels: Object.keys(levels), values: Object.values(levels) };
+                },
+                calculateUserRegisterTrend() {
+                    const registerByMonth = {};
+                    this.users.forEach(user => {
+                        const date = new Date(user.Created_at);
+                        if (isNaN(date.getTime())) return;
+                        const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                        registerByMonth[month] = (registerByMonth[month] || 0) + 1;
+                    });
+                    return { labels: Object.keys(registerByMonth).sort(), values: Object.values(registerByMonth) };
+                },
+                calculateRegionDistribution() {
+                    const regionCount = {};
+                    this.users.forEach(user => {
+                        regionCount[user.Region] = (regionCount[user.Region] || 0) + 1;
+                    });
+                    return { labels: Object.keys(regionCount), values: Object.values(regionCount) };
+                },
+                calculateActiveUsers() {
+                    const userOrderCount = {};
+                    this.orders.forEach(order => {
+                        userOrderCount[order.User_id] = (userOrderCount[order.User_id] || 0) + 1;
+                    });
+                    const active = this.users.filter(user => userOrderCount[user.User_id] > 0).length;
+                    const inactive = this.users.length - active;
+                    return { labels: ['活躍會員', '非活躍會員'], values: [active, inactive] };
+                },
+                calculateProductCategories() {
+                    const salesByCategory = {};
+                    this.orders.forEach(order => {
+                        if (!Array.isArray(order.details)) return;
+                        order.details.forEach(detail => {
+                            const product = this.products.find(p => String(p.Product_id) === String(detail.Product_id));
+                            if (product) {
+                                salesByCategory[product.Ptype] = (salesByCategory[product.Ptype] || 0) + Number(detail.Subtotal || 0);
+                            }
+                        });
+                    });
+                    return { labels: Object.keys(salesByCategory), values: Object.values(salesByCategory) };
+                },
+                calculatePriceRange() {
+                    const ranges = { '0-100': 0, '101-500': 0, '501-1000': 0, '1001+': 0 };
+                    this.products.forEach(product => {
+                        const price = Number(product.Price || 0);
+                        if (price <= 100) ranges['0-100']++;
+                        else if (price <= 500) ranges['101-500']++;
+                        else if (price <= 1000) ranges['501-1000']++;
+                        else ranges['1001+']++;
+                    });
+                    return { labels: Object.keys(ranges), values: Object.values(ranges) };
+                },
+                calculateProductStatus() {
+                    const statusCount = { '上架': 0, '下架': 0 };
+                    this.products.forEach(product => statusCount[product.Pstatus === 'Y' ? '上架' : '下架']++);
+                    return { labels: Object.keys(statusCount), values: Object.values(statusCount) };
+                },
+                calculateTopProducts() {
+                    const productSales = {};
+                    this.orders.forEach(order => {
+                        if (!Array.isArray(order.details)) return;
+                        order.details.forEach(detail => {
+                            productSales[detail.Product_id] = (productSales[detail.Product_id] || 0) + Number(detail.Quantity || 0);
+                        });
+                    });
+                    const topProducts = Object.entries(productSales)
+                        .map(([id, qty]) => ({ id, qty, name: this.products.find(p => String(p.Product_id) === String(id))?.Pname || `商品 ${id}` }))
+                        .sort((a, b) => b.qty - a.qty)
+                        .slice(0, 5);
+                    return { labels: topProducts.map(p => p.name), values: topProducts.map(p => p.qty) };
+                },
+                scrollToTop() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+                handleScroll() {
+                    const backToTopButton = document.getElementById('back-to-top');
+                    if (window.scrollY > 300) {
+                        backToTopButton.classList.add('visible');
+                    } else {
+                        backToTopButton.classList.remove('visible');
+                    }
+                }
+            }
+        };
+        Vue.createApp(App).mount('#app');
+    </script>
+</body>
+
+</html>

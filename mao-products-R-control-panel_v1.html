@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAOMAO-商品列表</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mao.css">
+    <link rel="stylesheet" href="css/mao_web.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <style>
+        .search-bar {
+            background-color: var(--maocolor08);
+            border: 1px solid var(--maocolor06);
+            color: var(--maocolor05);
+        }
+
+        .search-bar::placeholder {
+            color: var(--maocolor07);
+        }
+
+        .search-bar:focus {
+            border-color: var(--maocolor04);
+            box-shadow: 0 0 0 0.2rem rgba(201, 168, 141, 0.25);
+        }
+
+        .search-bar+.btn {
+            color: var(--maocolor05);
+        }
+
+        .search-bar+.btn:hover {
+            color: var(--maocolor04);
+        }
+
+        .card {
+            background-color: var(--maocolor08);
+            border: 1px solid var(--maocolor01);
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 30px;
+            padding: 10px 10px 0 10px;
+        }
+
+        .card-body {
+            margin-top: -10px;
+            color: var(--maocolor05);
+        }
+
+        .btn-warning {
+            background-color: var(--maocolor03);
+            border-color: var(--maocolor01);
+            color: var(--maocolor05);
+        }
+
+        .btn-primary {
+            background-color: var(--maocolor03);
+            border-color: var(--maocolor01);
+            color: var(--maocolor05);
+        }
+
+        .btn-secondary {
+            background-color: var(--maocolor07);
+            border-color: var(--maocolor06);
+            color: var(--maocolor05);
+        }
+
+        .modal-content {
+            background-color: var(--maocolor02);
+            border: 1px solid var(--maocolor06);
+        }
+
+        .modal-header {
+            background-color: var(--maocolor01);
+            color: var(--maocolor05);
+            border-bottom: 1px solid var(--maocolor06);
+        }
+
+        .modal-title {
+            color: var(--maocolor05);
+        }
+
+        .modal-body {
+            background-color: var(--maocolor02);
+        }
+
+        .form-control:disabled {
+            background-color: var(--maocolor09);
+            color: var(--maocolor07);
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--maocolor06);
+        }
+
+        .status-text {
+            color: var(--maocolor05);
+        }
+
+        .container .form-control,
+        .container .form-select {
+            background-color: var(--maocolor08);
+            border: 1px solid var(--maocolor06);
+            color: var(--maocolor05);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-01">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">MAOMAO控制台</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                會員管理
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="mao-users-control-panel_v1.html#registerModal">會員建檔</a>
+                                </li>
+                                <li><a class="dropdown-item" href="mao-users-control-panel_v1.html">會員列表</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                商品管理
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="productDropdown">
+                                <li><a class="dropdown-item" href="mao-products-C-control-panel_v1.html">商品建檔</a></li>
+                                <li><a class="dropdown-item active" href="mao-products-R-control-panel_v1.html">商品列表</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="orderDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                訂單管理
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="orderDropdown">
+                                <li><a class="dropdown-item " href="mao-orders-control-panel_v1.html">訂單列表</a></li>
+                                <li><a class="dropdown-item" href="#">退貨處理</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="mao-chart-control-panel_v1.html" id="reportDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                報表分析
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="reportDropdown">
+                                <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#orders">銷售報表</a></li>
+                                <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#users">會員分析</a></li>
+                                <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#products">商品分析</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="Mao-index_v1.html">回首頁</a></li>
+                    </ul>
+                    <div class="position-relative ms-auto">
+                        <input type="text" class="form-control rounded-pill search-bar pe-5" placeholder="Search..."
+                            aria-label="Search" v-model="searchQuery">
+                        <button class="btn position-absolute top-50 end-0 translate-middle-y" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container my-4">
+            <div class="row">
+                <div class="col-4">
+                    <select v-model="selectedType" class="form-control text-center">
+                        <option value="全部">全部類別</option>
+                        <option v-for="type in uniqueTypes" :key="type" :value="type">
+                            {{ type }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <select v-model="selectedSort" class="form-control text-center">
+                        <option value="newest">排序 : 新到舊</option>
+                        <option value="oldest">排序 : 舊到新</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <select v-model="selectedStatus" class="form-control text-center">
+                        <option value="全部">狀態 : 全部</option>
+                        <option value="Y">狀態 : 上架</option>
+                        <option value="N">狀態 : 下架</option>
+                    </select>
+                </div>
+            </div>
+            <div v-if="filteredProducts && filteredProducts.length" class="row justify-content-center" id="mydata">
+                <div class="col-lg-3 col-md-4 mt-3" v-for="item in filteredProducts" :key="item.Product_id">
+                    <div class="card h-100">
+                        <div class="text-center">
+                            <img :src="'uploads/' + item.Photo" class="card-img-top bg-cover pt-2" data-th="圖片"
+                                height="180px">
+                        </div>
+                        <div class="card-body px-3 d-flex flex-column">
+                            <div class="mb-2">
+                                <span>編號 : {{item.Product_id}}</span><br>
+                                <span>類別 : {{item.Ptype}}</span><br>
+                                <span>品名 : {{item.Pname}}</span><br>
+                                <span>價格 : {{item.Price}}</span><br>
+                                <span>說明 : {{item.Premark}}</span><br>
+                                <span>狀態 : {{ item.Pstatus === 'Y' ? '上架' : '下架' }}</span><br>
+                                <span>建檔時間 : {{item.Created_at}}</span>
+                            </div>
+                            <div class="d-flex justify-content-around mt-auto" data-th="功能">
+                                <button class="btn btn-warning" @click="openUpdateModal(item)" data-bs-toggle="modal"
+                                    data-bs-target="#updateModal">更新</button>
+                                <button class="btn btn-danger" @click="deleteProduct(item.Product_id)">刪除</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 fw-600" id="exampleModalLabel">商品更新</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" v-if="currentItem">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="productId" class="form-label">編號</label>
+                                    <input type="text" id="productId" class="form-control"
+                                        v-model="currentItem.Product_id" disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ptype" class="form-label">類別</label>
+                                    <select id="ptype" class="form-control" v-model="currentItem.Ptype">
+                                        <option v-for="type in uniqueTypes" :key="type" :value="type">{{ type }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pname" class="form-label">品名</label>
+                                    <input type="text" id="pname" class="form-control" v-model="currentItem.Pname"
+                                        :class="{ 'is-valid': pnameValid === true, 'is-invalid': pnameValid === false }">
+                                    <div v-if="pnameValid === true" class="valid-feedback">{{ pnameMessage }}</div>
+                                    <div v-if="pnameValid === false" class="invalid-feedback">{{ pnameMessage }}</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">價格</label>
+                                    <input type="number" id="price" class="form-control" v-model="currentItem.Price"
+                                        :class="{ 'is-valid' : flag_price_up, 'is-invalid' : !flag_price_up}">
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback">不符合價格規則</div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3">
+                                        <label for="status" class="form-label">狀態</label>
+                                        <div class="checkbox-wrapper-9">
+                                            <input class="tgl tgl-flat" id="cb4-9" type="checkbox"
+                                                v-model="currentItem.Pstatus" :true-value="'Y'" :false-value="'N'" />
+                                            <label class="tgl-btn" for="cb4-9"></label>
+                                            <span class="status-text">
+                                                {{ currentItem.Pstatus === 'Y' ? '上架' : '下架' }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-9">
+                                        <label for="createdAt" class="form-label">建檔時間</label>
+                                        <input type="text" id="createdAt" class="form-control"
+                                            v-model="currentItem.Created_at" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="remark" class="form-label">說明</label>
+                                    <textarea id="remark" class="form-control" v-model="currentItem.Premark"
+                                        :class="{ 'is-valid' : flag_premark_up, 'is-invalid' : !flag_premark_up}"></textarea>
+                                    <div class="valid-feedback"></div>
+                                    <div class="invalid-feedback">請輸入商品說明</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="productImage" class="form-label">商品圖片</label>
+                                    <input type="file" id="productImage" class="form-control" @change="previewImage"
+                                        accept="image/*">
+                                    <div class="text-center mt-3">
+                                        <img :src="imagePreview ? imagePreview : 'uploads/' + currentItem.Photo"
+                                            class="img-fluid" v-if="currentItem.Photo || imagePreview"
+                                            alt="Product Image" style="max-height: 250px; max-width: 250px;">
+                                        <p v-if="selectedFileName">{{ selectedFileName }}</p>
+                                        <p v-else-if="currentItem.Photo" class="mt-2">{{ currentItem.Photo }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" @click="updateProduct">確認</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js">	</script>
+    <script src="js/wow.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/mao-auth.js"></script>
+    <script>
+        const App = {
+            data() {
+                return {
+                    products: [], 
+                    selectedType: "全部", 
+                    selectedSort: "newest", 
+                    selectedStatus: "全部", 
+                    currentItem: null, 
+                    uid: null,
+                    flag_pname_up: true,
+                    flag_price_up: true,
+                    flag_premark_up: true,
+                    imagePreview: null,  
+                    selectedFileName: "", 
+                    pnameValid: null,
+                    pnameMessage: "",
+                    searchQuery: "", 
+                    products: [],    
+                };
+            },
+            computed: {
+                uniqueTypes() {
+                    const vm = this;
+                    return [...new Set(vm.products.map(item => item.Ptype))];
+                },
+                filteredProducts() {
+                    const vm = this;
+                    let filtered = vm.products;
+                    if (vm.selectedType !== "全部") {
+                        filtered = filtered.filter(item => item.Ptype === vm.selectedType);
+                    }
+                    if (vm.selectedStatus !== "全部") {
+                        filtered = filtered.filter(item => item.Pstatus === vm.selectedStatus);
+                    }
+                    if (vm.selectedSort === "newest") {
+                        filtered = filtered.sort((a, b) => new Date(b.Created_at) - new Date(a.Created_at));
+                    } else if (vm.selectedSort === "oldest") {
+                        filtered = filtered.sort((a, b) => new Date(a.Created_at) - new Date(b.Created_at));
+                    }
+                    if (vm.searchQuery) {
+                        filtered = filtered.filter(item =>
+                            item.Pname.toLowerCase().includes(vm.searchQuery.toLowerCase()) ||
+                            item.Ptype.toLowerCase().includes(vm.searchQuery.toLowerCase())
+                        );
+                    }
+                    return filtered;
+                }
+            },
+            mounted() {
+                this.fetchProductTypes();
+            },
+            watch: {
+                'currentItem.Pname': function (newValue) {
+                const vm = this;
+                if (newValue === vm.originalPname) {
+                    vm.pnameValid = null;
+                    vm.pnameMessage = "";
+                    return;
+                }
+                if (newValue.length === 0 || newValue.length > 100) {
+                    vm.pnameValid = false;
+                    vm.pnameMessage = "品名長度必須在 1 到 100 之間";
+                    return;
+                }
+                axios.post("mao-products-control-api_v1.php?action=check_pname", { pname: newValue }) 
+                    .then(response => {
+                        vm.pnameValid = response.data.state;
+                        vm.pnameMessage = response.data.message;
+                    })
+                    .catch(() => {
+                        vm.pnameValid = false;
+                        vm.pnameMessage = "檢查失敗，請稍後再試";
+                    });
+            },
+                'currentItem.Price': function (newValue) {
+                    const vm = this;
+                    if (newValue > 99 && newValue < 10001) {
+                        vm.flag_price_up = true;
+                    } else {
+                        vm.flag_price_up = false;
+                    }
+                },
+                'currentItem.Premark': function (newValue) {
+                    const vm = this;
+                    if (newValue.length > 0 && newValue.length < 301) {
+                        vm.flag_premark_up = true;
+                    } else {
+                        vm.flag_premark_up = false;
+                    }
+                },
+            },
+            methods: {
+                fetchProductTypes() {
+                const vm = this;
+                axios.get("mao-products-control-api_v1.php?action=getalldata") // 修改為新 API
+                    .then(response => {
+                        if (response.data.state) {
+                            if (Array.isArray(response.data.data)) {
+                                vm.products = response.data.data;
+                            } else {
+                                vm.products = [];
+                            }
+                        } else {
+                            vm.products = [];
+                        }
+                    })
+                    .catch(error => {
+                        vm.products = [];
+                    });
+            },
+                openUpdateModal(item) {
+                    const vm = this;
+                    vm.currentItem = Object.assign({}, item);
+                    vm.originalPname = item.Pname;  
+                },
+                previewImage(event) {
+                    const vm = this;
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            vm.imagePreview = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                        vm.currentItem.PhotoFile = file;  
+                        vm.currentItem.Photo = file.name; 
+                        vm.selectedFileName = file.name; 
+                    }
+                },
+                updateProduct() {
+                const vm = this;
+                const formData = new FormData();
+                formData.append("product_id", vm.currentItem.Product_id);
+                formData.append("pname", vm.currentItem.Pname);
+                formData.append("ptype", vm.currentItem.Ptype);
+                formData.append("price", vm.currentItem.Price);
+                formData.append("premark", vm.currentItem.Premark);
+                formData.append("pstatus", vm.currentItem.Pstatus);
+                if (vm.currentItem.PhotoFile) {
+                    formData.append("file", vm.currentItem.PhotoFile); 
+                }
+
+                axios.post("mao-products-control-api_v1.php?action=update", formData, { 
+                    headers: { "Content-Type": "multipart/form-data" }
+                })
+                    .then(response => {
+                        if (response.data.state) {
+                            Swal.fire({ title: "商品更新成功!", icon: "success" })
+                                .then(() => {
+                                    let modal = document.getElementById("updateModal");
+                                    let modalInstance = bootstrap.Modal.getInstance(modal);
+                                    if (modalInstance) {
+                                        modalInstance.hide();
+                                    }
+                                    vm.fetchProductTypes();
+                                });
+                        } else {
+                            Swal.fire({ title: "更新失敗!", text: response.data.message, icon: "error" });
+                        }
+                    })
+                    .catch(error => {
+                    });
+            },
+            deleteProduct(id) {
+                Swal.fire({
+                    title: "確認刪除?",
+                    text: "刪除後無法恢復!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "確定刪除"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios({
+                            method: "DELETE", 
+                            url: "mao-products-control-api_v1.php?action=delete", 
+                            data: { id: id },
+                            headers: { "Content-Type": "application/json" }
+                        })
+                            .then(response => {
+                                if (response.data.state) {
+                                    Swal.fire("刪除成功!", "", "success");
+                                    this.fetchProductTypes();
+                                } else {
+                                    Swal.fire("刪除失敗", response.data.message, "error");
+                                }
+                            })
+                            .catch(error => {
+                            });
+                    }
+                });
+            },
+            }
+        }
+        Vue.createApp(App).mount('#app');
+    </script>
+</body>
+
+</html>

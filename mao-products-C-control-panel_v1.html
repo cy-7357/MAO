@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAOMAO-商品建檔</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mao.css">
+    <link rel="stylesheet" href="css/mao_web.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <style>
+        textarea {
+            min-height: 100px;
+            height: auto;
+            resize: none;
+            overflow-y: hidden;
+            background-color: var(--maocolor08);
+            border: 1px solid var(--maocolor06);
+            color: var(--maocolor05);
+        }
+
+        textarea:focus {
+            border-color: var(--maocolor04);
+            box-shadow: 0 0 0 0.2rem rgba(201, 168, 141, 0.25);
+        }
+
+        textarea::placeholder {
+            color: var(--maocolor07);
+        }
+
+        .row {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .container .col-md-6.pt-2,
+        .container .col-md-12.shadow {
+            background-color: var(--maocolor08);
+            border: 1px solid var(--maocolor06);
+        }
+
+        .text-secondary {
+            color: var(--maocolor06);
+        }
+
+        .btn-success {
+            color: var(--maocolor05);
+        }
+
+        .btn-danger {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-01">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MAOMAO控制台</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            會員管理
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="mao-users-control-panel_v1.html#registerModal">會員建檔</a>
+                            </li>
+                            <li><a class="dropdown-item" href="mao-users-control-panel_v1.html">會員列表</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            商品管理
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="productDropdown">
+                            <li><a class="dropdown-item active" href="mao-products-C-control-panel_v1.html">商品建檔</a></li>
+                            <li><a class="dropdown-item" href="mao-products-R-control-panel_v1.html">商品列表</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="orderDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            訂單管理
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="orderDropdown">
+                            <li><a class="dropdown-item " href="mao-orders-control-panel_v1.html">訂單列表</a></li>
+                            <li><a class="dropdown-item" href="#">退貨處理</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="mao-chart-control-panel_v1.html" id="reportDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            報表分析
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="reportDropdown">
+                            <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#orders">銷售報表</a></li>
+                            <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#users">會員分析</a></li>
+                            <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html#products">商品分析</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="Mao-index_v1.html">回首頁</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row justify-content-center py-5">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="mb-3">
+                            <label for="ptype" class="form-label">商品類別</label>
+                            <select name="ptype" id="ptype" class="form-select is-invalid">
+                                <option value="" class="text-center" selected disabled>-----請選擇類別-----</option>
+                                <option value="睡眠床具" class="text-center">睡眠床具</option>
+                                <option value="出行用品" class="text-center">出行用品</option>
+                                <option value="居住空間" class="text-center">居住空間</option>
+                                <option value="服裝配飾" class="text-center">服裝配飾</option>
+                                <option value="耐用玩具" class="text-center">耐用玩具</option>
+                                <option value="訓練設備" class="text-center">訓練設備</option>
+                            </select>
+                            <div class="valid-feedback"></div>
+                            <div class="invalid-feedback" id="pname-invalid-feedback">未選擇類別</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pname" class="form-label">商品名稱</label>
+                            <input type="text" class="form-control is-invalid" name="pname" id="pname" list="menu"
+                                placeholder="商品名稱(100字内)">
+                            <datalist id="menu">
+                                <option value="豪華寵物床墊"></option>
+                                <option value="多功能寵物推車"></option>
+                                <option value="耐用寵物旅行箱"></option>
+                                <option value="時尚寵物項圈與牽繩套裝"></option>
+                                <option value="可調式寵物訓練圍欄"></option>
+                                <option value="耐咬橡膠寵物玩具"></option>
+                            </datalist>
+                            <div class="valid-feedback" id="pname-valid-feedback">符合規則</div>
+                            <div class="invalid-feedback" id="pname-invalid-feedback">不符合規則</div>
+                        </div>
+                        <div class="mb-3 align-content-center">
+                            <label for="price" class="form-label"> <span>租賃單價(NT)元/天:</span></label>
+                            <input type="number" id="price" name="price" class="form-control is-invalid"
+                                placeholder="100-10000元" max="10000" min="100" step="10">
+                            <div class="valid-feedback"></div>
+                            <div class="invalid-feedback">不符合價格規則</div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="checkbox-wrapper-9">
+                                <input class="tgl tgl-flat" id="pstatus" type="checkbox" checked />
+                                <label class="tgl-btn" for="pstatus"></label>
+                                <span id="pstatus-text">上架</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 pt-2 rounded-4" style="height: 100%;">
+                        <div class="text-center">
+                            <div class="form-floating form-inline is-invalid">
+                                <textarea name="premark" id="premark" class="form-control"></textarea>
+                                <label for="premark" class="form-label">商品說明(300字内):</label>
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">請輸入商品說明</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3 justify-content-center">
+                    <div class="col-md-12 shadow py-3 rounded-4 text-center">
+                        <div class="text-secondary">上傳商品照片</div>
+                        <div class="mb-3">
+                            <label for="fileupload" class="form-label">選擇上傳檔案(圖片).jpeg /.png</label>
+                            <input type="file" id="fileupload" name="fileupload" class="form-control">
+                            <div class="valid-feedback">符合格式</div>
+                            <div class="invalid-feedback">不符合格式</div>
+                        </div>
+                        <div id="preview_box" class="row-cols-md-3 shadow py-5 rounded-4 d-none">
+                            <label for="" class="align-content-lg-start">檔案大小:<span id="photosize"></span>KB</label>
+                            <img src="" alt="" id="previewImg" class="img-fluid w-100 mt-3 d-none">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 mb-5">
+                    <button class="btn btn-success" id="ok_btn">送出</button>
+                    <button class="btn btn-danger" id="cancel_btn">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js">	</script>
+    <script src="js/wow.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/mao-auth.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const textarea = document.getElementById('premark');
+            const leftColumn = document.querySelector('.col-md-5'); 
+            const adjustTextareaHeight = () => {
+                const leftHeight = leftColumn.offsetHeight;
+                textarea.style.height = leftHeight + 'px'; 
+            };
+            adjustTextareaHeight();
+            textarea.addEventListener('input', function () {
+                textarea.style.height = 'auto'; 
+                textarea.style.height = Math.max(textarea.scrollHeight, leftColumn.offsetHeight) + 'px'; 
+            });
+            window.addEventListener('resize', adjustTextareaHeight);
+        });
+    </script>
+    <script>
+        var flag_ptype = false;
+        var flag_pname = false;
+        var flag_price = false;
+        var flag_photo = false;
+        var photo_name;
+        var flag_premark = false;
+
+        $(function () {
+            $("#ptype").bind("input propertychange", function () {
+                if ($(this).val() != "") {
+                    $(this).addClass("is-valid");
+                    $(this).removeClass("is-invalid");
+                    flag_ptype = true;
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_ptype = false;
+                }
+            });
+            $("#pname").bind("input propertychange", function () {
+                if ($(this).val().length > 0 && $(this).val().length < 101) {
+                    var JSONdata = {};
+                    JSONdata["pname"] = $(this).val();
+                    $.ajax({
+                        type: "POST",
+                        url: "mao-products-control-api_v1.php?action=check_pname", // 修改為新 API
+                        data: JSON.stringify(JSONdata),
+                        dataType: "json",
+                        success: showdata_check_uni,
+                        error: function () {
+                            alert("error-mao-products-control-api_v1.php?action=check_pname");
+                        }
+                    });
+                } else {
+                    $("#pname-invalid-feedback").text("不符合規則");
+                    $("#pname").removeClass("is-valid");
+                    $("#pname").addClass("is-invalid");
+                    flag_pname = false;
+                }
+            });
+            $("#price").bind("input propertychange", function () {
+                if ($(this).val() > 99 && $(this).val() < 10001) {
+                    $("#price").removeClass("is-invalid");
+                    $("#price").addClass("is-valid");
+                    flag_price = true;
+                } else {
+                    $("#price").removeClass("is-valid");
+                    $("#price").addClass("is-invalid");
+                    flag_price = false;
+                }
+            });
+            $("#pstatus").change(function () {
+                if ($(this).prop("checked")) {
+                    $("#pstatus-text").text("上架");
+                } else {
+                    $("#pstatus-text").text("下架");
+                }
+            });
+            $("#premark").bind("input propertychange", function () {
+                if ($(this).val().length > 0 && $(this).val().length < 301) {
+                    $("#premark").addClass("is-valid");
+                    $("#premark").removeClass("is-invalid");
+                    flag_premark = true;
+                } else {
+                    $("#premark").removeClass("is-valid");
+                    $("#premark").addClass("is-invalid");
+                    flag_premark = false;
+                }
+            });
+            $("#fileupload").change(function () {
+                if (fileupload.files[0].type == "image/jpeg" || fileupload.files[0].type == "image/png") {
+                    $("#preview_box").removeClass("d-none");
+                    $("#previewImg").removeClass("d-none");
+                    $("#previewImg").attr("src", URL.createObjectURL(fileupload.files[0]));
+                    $("#fileupload").addClass("is-valid");
+                    $("#fileupload").removeClass("is-invalid");
+                    $("#previewImg").removeClass("d-none");
+                    $photo_name = fileupload.files[0].name;
+                    $("#photosize").text(fileupload.files[0].size / 1024);
+                    flag_photo = true;
+                } else {
+                    alert("只支援jpeg與png格式!");
+                    $("#preview_box").addClass("d-none");
+                    $("#previewImg").addClass("d-none")
+                    $("#fileupload").removeClass("is-valid");
+                    $("#fileupload").addClass("is-invalid");
+                    $("#photosize").empty();
+                    flag_photo = false;
+                }
+            });
+
+            $("#ok_btn").click(function () {
+                if (flag_ptype && flag_pname && flag_price && flag_photo && flag_premark) {
+                    var formData = new FormData();
+                    formData.append("ptype", $("#ptype").val());
+                    formData.append("pname", $("#pname").val());
+                    formData.append("price", $("#price").val());
+                    formData.append("premark", $("#premark").val());
+                    formData.append("pstatus", $("#pstatus").prop("checked") ? "Y" : "N");
+                    formData.append("file", $("#fileupload")[0].files[0]); 
+
+                    $.ajax({
+                        type: "POST",
+                        url: "mao-products-control-api_v1.php?action=insert", 
+                        data: formData,
+                        dataType: "json",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: showdata,
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "新增失敗",
+                                text: xhr.responseText
+                            });
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: "欄位錯誤",
+                        icon: "error"
+                    });
+                }
+            });
+
+        });
+
+        function showdata(data) {
+            if (data.state) {
+                Swal.fire({
+                    icon: "success",
+                    title: data.message,
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: "確認",
+                    denyButtonText: `Don't save`,
+                    allowOutsideClick: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = "mao-products-C-control-panel_v1.html";
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: data.message,
+                    icon: "error"
+                });
+            }
+        }
+
+        function showdata_check_uni(data) {
+            if (data.state) {
+                $("#pname").removeClass("is-invalid");
+                $("#pname").addClass("is-valid");
+                $("#pname-valid-feedback").text(data.message);
+                flag_pname = true;
+            } else {
+                $("#pname").removeClass("is-valid");
+                $("#pname").addClass("is-invalid");
+                $("#pname-invalid-feedback").text(data.message);
+                flag_pname = false;
+            }
+        }
+    </script>
+</body>
+
+</html>

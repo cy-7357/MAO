@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Zen+Maru+Gothic&display=swap');
+:root{
+    /*Mao*/
+    --maocolor01:#D8C3A5;/*淺奶茶色*/
+/* 選單背景色、主要按鈕顏色、商品卡片的邊框（圓角）
+按鈕懸停效果（hover）、特定區塊背景色（區塊的標題背景）
+加入購物車、登入、提交表單按鈕、卡片、表單區塊及按鈕邊框 */
+    --maocolor02:#EAE7DC;/*奶白色背景*/
+/* 網站的背景顏色、表單背景（登入視窗的背景）
+選單背景的半透明背景（80% 透明度）、主要內容區塊的背景顏色 */
+    --maocolor03:#F4E1C6;/*柔和米色*/
+/* 主要操作按鈕的背景顏色（如“加入購物車”按鈕）
+優惠介紹區塊的小卡片背景區塊的背景優惠介紹區塊的背景
+商品卡片內的背景顏色（如描述文字區域） */
+    --maocolor04:#C9A88D;/*稍深的奶茶色*/
+/* 按鈕懸停、商品卡片的懸停效果選單按鈕懸停效果、按鈕懸停效果的顏色變化
+表單輸入框、按鈕等懸停時的邊框顏色變化 */
+    --maocolor05:#6D4C41;/*深咖啡色*/
+/* 標題文字（如頁面標題、區塊標題）
+主要的內容文字（如介紹文字、商品名稱、主區塊的段落）
+所有頁面中的超鏈接文字（例如“更多詳情”）
+按鈕或連結文字顏色，當沒有懸停時，使用此顏色
+表單標籤（例如登入視窗的“帳號”與“密碼”欄位標題）
+表單中所輸入的文字、按鈕中文字的顏色 */
+    --maocolor06:#9E8B7E;/*淺棕色*/
+/* 輔助性文字（如按鈕文字、次要區塊標題）、商品價格或小文字描述
+不太強調的內容文字（如“了解更多”鏈接文字）
+細節邊框（例如選單區域的邊框、輸入框邊框） */
+    --maocolor07:#B0A88F;/*淺灰色*/
+/* 表單中占位符的文字顏色（如登入表單中的“請輸入帳號”）
+禁用按鈕文字、禁用表單欄位的文字顏色 */
+    --maocolor08:#F9F4EC;/*米色*/
+/* 商品展示卡片的背景色（如商品卡片內部）
+優惠卡片的背景色、其他次要區塊卡片的背景色*/
+    --maocolor09:#E0D4B3;/*灰奶茶色*/
+/* 禁用按鈕或表單欄位的背景顏色 */    
+
+    /*莫蘭迪藍色網頁配色*/
+    --mycolor01:#D8E6E7;
+    --mycolor02:#6E7783;
+    --mycolor03:#77aaad;
+    --mycolor04:#9DC3C1;
+    --mycolor05:#F0E5DE;
+    --mycolor06:#ABD0CE;
+    --mycolor07:#7C7877;
+    --mycolor08:#D9D4CF;
+    --textcolor01:#f4f7f7;
+    --textcolor02:#aacfd0;
+    --textcolor03:#79a8a9;
+    --textcolor04:#1f4e5f;
+
+    /*奶茶色網頁配色*/
+    --bgcolor01:#D8C2A1;/*主要背景色，導航欄，主要按鈕，區域標題 */
+    --bgcolor02:#F7F1E1;/*次要背景、卡片區域、分隔線、主要頁面背景*/
+    --bgcolor03:#B28D65;/*文字顏色、區塊背景色，次要按鈕 */
+    --bgcolor04:#F1E1C6;/*浮動元素、邊框、圖標顏色 */
+    --bgcolor05:#A1D6C7;/*強調色、連結、hover 效果，提供清新感覺，對比奶茶色 */
+    --bgcolor06:#F5E0C3;/*內容卡片、彈出視窗 */
+    --txcolor01:#333333;/*所有標題 */
+    --txcolor02:#4A4A4A;/*段落、描述文字、表格文字 */
+    --txcolor03:#8F8F8F;/*副標題、時間戳記、描述性文字 */
+    --btbgcolor01:#D8C2A1;/*主要按鈕背景色 */
+    --bttxcolor01:#FFFFFF;/*主要按鈕文字顏色 */
+    --btbgcolor02:#F1E1C6;/*次要按鈕背景色 */
+    --bttxcolor02:#333333;/*次要按鈕文字顏色 */
+    --navbgcolor01:#D8C2A1;/*頂部導航欄、底部導航欄 */
+    --navtxcolor01:#4A4A4A;/*導航項目文字 */
+    --acolor01:#A1D6C7;/*頁面中所有的文字鏈接 */
+    --ahcolor01:#7AA89B;/*當用戶懸停於連結時顯示 */
+    --errorcolor01:#F5A623;/*警告信息、提醒訊息*/
+    --errorcolor02:#E94F4F;/*錯誤訊息、警告框*/
+}
+/* 背景色 文字色 */
+.bg-01{background-color: var(--maocolor01);}
+.bg-02{background-color: var(--maocolor02);}
+.bg-03{background-color: var(--maocolor03);}
+.bg-04{background-color: var(--maocolor04);}
+.bg-05{background-color: var(--maocolor05);}
+.bg-06{background-color: var(--maocolor06);}
+.bg-07{background-color: var(--maocolor07);}
+.bg-08{background-color: var(--maocolor08);}
+.bg-09{background-color: var(--maocolor09);}
+.tx-01{color: var(--maocolor01);}
+.tx-02{color: var(--maocolor02);}
+.tx-03{color: var(--maocolor03);}
+.tx-04{color: var(--maocolor04);}
+.tx-05{color: var(--maocolor05);}
+.tx-06{color: var(--maocolor06);}
+.tx-07{color: var(--maocolor07);}
+.tx-08{color: var(--maocolor08);}
+.tx-09{color: var(--maocolor09);}
+
+body{font-family: "Zen Maru Gothic", serif;}
+
+.bg-cover {
+    background-position: center center;
+    background-size: cover;
+}
+
+/* 文字粗體 */
+.fw-100{font-weight: 100;}
+.fw-200{font-weight: 200;}
+.fw-300{font-weight: 300;}
+.fw-400{font-weight: 400;}
+.fw-500{font-weight: 500;}
+.fw-600{font-weight: 600;}
+.fw-700{font-weight: 700;}
+.fw-800{font-weight: 800;}
+.fw-900{font-weight: 900;}
+
+/* roller卷軸效果 */
+/* 上方滑入-外層:myrollert 內層:rollert */
+.myrollert{
+    position: relative;
+    overflow: hidden;
+}
+.rollert{
+    position: absolute;
+    /* background-color: rgba(88, 128, 107, 0.3); */
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(88, 128, 107, 0.3));
+    width: 100%;
+    height: 100%;
+    top: -100%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.myrollert:hover .rollert{
+    top: 0;
+    transition: top 0.5s;
+}
+/* 下方滑入-外層:myrollerb 內層:rollerb */
+.myrollerb{
+    position: relative;
+    overflow: hidden;
+}
+.rollerb{
+    position: absolute;
+    /* background-color: rgba(88, 128, 107, 0.3); */
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(88, 128, 107, 0.3));
+    width: 100%;
+    height: 100%;
+    bottom: -100%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.myrollerb:hover .rollerb{
+    bottom: 0;
+    transition: bottom 0.5s;
+}
+/* 左側滑入-外層:myrollerl 內層:rollerl */
+.myrollerl{
+    position: relative;
+    overflow: hidden;
+}
+.rollerl{
+    position: absolute;
+    /* background-color: rgba(88, 128, 107, 0.3); */
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(88, 128, 107, 0.3));
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.myrollerl:hover .rollerl{
+    left: 0;
+    transition: left 0.5s;
+}
+/* 右側滑入-外層:myrollerr 內層:rollerr */
+.myrollerr{
+    position: relative;
+    overflow: hidden;
+}
+.rollerr{
+    position: absolute;
+    /* background-color: rgba(88, 128, 107, 0.3); */
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(88, 128, 107, 0.3));
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: -100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.myrollerr:hover .rollerr{
+    right: 0;
+    transition: right 0.5s;
+}
+
+/* 1.table.table-rwd */
+/* 2.<td data-th="xx"> */
+/* 3.<span class="table-col">xx</span> */
+@media screen and (max-width:768px){
+    .table-rwd thead{
+        display: none;
+    }
+    .table-rwd tr{
+        display: block;
+        margin-top: 10px;
+        border: 2px solid var(--bgcolor03);
+    }
+    .table-rwd tbody tr td{
+        display: block;
+        overflow: hidden;
+    }
+    .table-rwd tbody tr td::before{
+        content:attr(data-th) " : ";
+        display: block;
+        float: left;
+        width: 30%;
+        text-align: right;
+        padding-right: 20px;
+        font-weight: 900;
+        color: var(--txcolor01);
+        font-size: 20px;
+    }
+    .table-rwd tbody tr td span{
+        color: var(--txcolor02);
+    }
+    .table-rwd tbody tr td span .table-col{
+        display: block;
+        float: left;
+        width: 70%;
+    }    
+}

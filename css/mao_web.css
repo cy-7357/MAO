@@ -1,0 +1,245 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--maocolor02);
+    /* 奶白色作為網站背景 */
+    color: var(--maocolor05);
+    /* 深咖啡色作為主要文字 */
+    font-family: "Zen Maru Gothic", serif;
+}
+
+/* Navbar */
+.navbar.bg-01 {
+    background-color: var(--maocolor01);
+    /* 淺奶茶色作為導航欄背景 */
+}
+
+.navbar-brand {
+    color: var(--maocolor05);
+    /* 深咖啡色作為標題文字 */
+    font-weight: bold;
+}
+
+.navbar-brand:hover {
+    color: var(--maocolor04);
+    /* 懸停時變為稍深的奶茶色 */
+}
+
+.nav-link,
+.dropdown-toggle {
+    color: var(--maocolor05);
+    /* 深咖啡色作為連結文字 */
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.dropdown-toggle:hover,
+.dropdown-toggle:focus {
+    color: var(--maocolor04);
+    /* 懸停時變為稍深的奶茶色 */
+}
+
+.nav-link.active {
+    color: var(--maocolor04);
+    /* 稍深的奶茶色作為活動狀態 */
+    background-color: rgba(201, 168, 141, 0.2);
+    /* 輕微背景 */
+}
+
+.dropdown-menu {
+    background-color: var(--maocolor02);
+    /* 奶白色作為下拉選單背景 */
+    border: 1px solid var(--maocolor06);
+    /* 淺棕色邊框 */
+}
+
+.dropdown-item {
+    color: var(--maocolor05);
+    /* 深咖啡色作為選項文字 */
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: var(--maocolor04);
+    /* 懸停時變為稍深的奶茶色 */
+    color: var(--maocolor08);
+    /* 米色作為懸停文字 */
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: var(--maocolor04);
+    /* 活動狀態背景 */
+    color: var(--maocolor08);
+    /* 活動狀態文字 */
+}
+
+/* Form Elements */
+.form-label {
+    color: var(--maocolor05);
+    /* 深咖啡色標籤 */
+}
+
+.form-control,
+.form-select {
+    background-color: var(--maocolor08);
+    /* 米色作為輸入框背景 */
+    border: 1px solid var(--maocolor06);
+    /* 淺棕色邊框 */
+    color: var(--maocolor05);
+    /* 深咖啡色文字 */
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--maocolor04);
+    /* 聚焦時邊框變為稍深的奶茶色 */
+    box-shadow: 0 0 0 0.2rem rgba(201, 168, 141, 0.25);
+}
+
+.form-control::placeholder {
+    color: var(--maocolor07);
+    /* 淺灰色占位符 */
+}
+
+.valid-feedback {
+    color: #7FC6A6;
+    /* 保留成功綠色 */
+}
+
+.invalid-feedback {
+    color: #E94F4F;
+    /* 保留錯誤紅色 */
+}
+
+/* Buttons */
+.btn-success {
+    background-color: #7FC6A6;
+    /* 保留成功綠色 */
+    border-color: #7FC6A6;
+}
+
+.btn-danger {
+    background-color: #E94F4F;
+    /* 保留危險紅色 */
+    border-color: #E94F4F;
+}
+
+.btn:hover {
+    background-color: var(--maocolor04);
+    /* 懸停時變為稍深的奶茶色 */
+}
+
+/* 自定義上架狀態切換樣式 */
+.checkbox-wrapper-9 .tgl {
+    display: none;
+}
+
+.checkbox-wrapper-9 .tgl,
+.checkbox-wrapper-9 .tgl:after,
+.checkbox-wrapper-9 .tgl:before,
+.checkbox-wrapper-9 .tgl *,
+.checkbox-wrapper-9 .tgl *:after,
+.checkbox-wrapper-9 .tgl *:before,
+.checkbox-wrapper-9 .tgl+.tgl-btn {
+    box-sizing: border-box;
+}
+
+.checkbox-wrapper-9 .tgl::-moz-selection,
+.checkbox-wrapper-9 .tgl:after::-moz-selection,
+.checkbox-wrapper-9 .tgl:before::-moz-selection,
+.checkbox-wrapper-9 .tgl *::-moz-selection,
+.checkbox-wrapper-9 .tgl *:after::-moz-selection,
+.checkbox-wrapper-9 .tgl *:before::-moz-selection,
+.checkbox-wrapper-9 .tgl+.tgl-btn::-moz-selection,
+.checkbox-wrapper-9 .tgl::selection,
+.checkbox-wrapper-9 .tgl:after::selection,
+.checkbox-wrapper-9 .tgl:before::selection,
+.checkbox-wrapper-9 .tgl *::selection,
+.checkbox-wrapper-9 .tgl *:after::selection,
+.checkbox-wrapper-9 .tgl *:before::selection,
+.checkbox-wrapper-9 .tgl+.tgl-btn::selection {
+    background: none;
+}
+
+.checkbox-wrapper-9 .tgl+.tgl-btn {
+    outline: 0;
+    display: block;
+    width: 4em;
+    height: 2em;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-right: 5px;
+    /* 確保開關和文字之間有一些間距 */
+}
+
+.checkbox-wrapper-9 .tgl+.tgl-btn:after,
+.checkbox-wrapper-9 .tgl+.tgl-btn:before {
+    position: relative;
+    display: block;
+    content: "";
+    width: 50%;
+    height: 100%;
+}
+
+.checkbox-wrapper-9 .tgl+.tgl-btn:after {
+    left: 0;
+}
+
+.checkbox-wrapper-9 .tgl+.tgl-btn:before {
+    display: none;
+}
+
+.checkbox-wrapper-9 .tgl:checked+.tgl-btn:after {
+    left: 50%;
+}
+
+.checkbox-wrapper-9 .tgl-flat+.tgl-btn {
+    padding: 2px;
+    transition: all 0.2s ease;
+    background: var(--maocolor08);
+    /* 米色背景 */
+    border: 4px solid var(--maocolor06);
+    /* 淺棕色邊框 */
+    border-radius: 2em;
+}
+
+.checkbox-wrapper-9 .tgl-flat+.tgl-btn:after {
+    transition: all 0.2s ease;
+    background: var(--maocolor07);
+    /* 淺灰色滑塊 */
+    content: "";
+    border-radius: 1em;
+}
+
+.checkbox-wrapper-9 .tgl-flat:checked+.tgl-btn {
+    border: 4px solid #7FC6A6;
+    /* 成功綠色邊框 */
+}
+
+.checkbox-wrapper-9 .tgl-flat:checked+.tgl-btn:after {
+    left: 50%;
+    background: #7FC6A6;
+    /* 成功綠色滑塊 */
+}
+
+.checkbox-wrapper-9 {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-wrapper-9 #pstatus-text {
+    margin-left: 5px;
+    /* 給文字一點間隔 */
+    font-size: 1rem;
+    color: var(--maocolor05);
+    /* 深咖啡色文字 */
+}

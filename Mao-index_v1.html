@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAOMAO-寵物用品租賃</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/mao.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: var(--maocolor02);
+            color: var(--maocolor05);
+            font-family: "Zen Maru Gothic", serif;
+        }
+
+        h2 {
+            color: var(--maocolor05);
+        }
+        .navbar.bg-01 {
+            background-color: var(--maocolor01);
+        }
+
+        .navbar-brand {
+            color: var(--maocolor05);
+            font-weight: bold;
+        }
+
+        .navbar-brand:hover {
+            color: var(--maocolor04);
+        }
+
+        .navbar-brand i {
+            color: var(--maocolor05);
+        }
+
+        .nav-link,
+        .dropdown-toggle {
+            color: var(--maocolor05);
+        }
+
+        .nav-link:hover,
+        .nav-link:focus,
+        .dropdown-toggle:hover,
+        .dropdown-toggle:focus {
+            color: var(--maocolor04);
+        }
+
+        .nav-link.active {
+            color: var(--maocolor04);
+            background-color: rgba(201, 168, 141, 0.2);
+        }
+
+        .dropdown-menu {
+            background-color: var(--maocolor02);
+            border: 1px solid var(--maocolor06);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+        }
+
+        .dropdown-menu.cart-dropdown {
+            min-width: 450px;
+        }
+
+        .dropdown-item {
+            color: var(--maocolor05);
+            padding: 0.5rem 1rem;
+        }
+
+        .dropdown-item:hover,
+        .dropdown-item:focus {
+            background-color: var(--maocolor04);
+            color: var(--maocolor08);
+        }
+
+        .dropdown-item.active,
+        .dropdown-item:active {
+            background-color: var(--maocolor04);
+            color: var(--maocolor08);
+        }
+
+        .form-label {
+            color: var(--maocolor05);
+        }
+
+        .form-control,
+        .form-select {
+            background-color: var(--maocolor08);
+            border: 1px solid var(--maocolor06);
+            color: var(--maocolor05);
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--maocolor04);
+            box-shadow: 0 0 0 0.2rem rgba(201, 168, 141, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: var(--maocolor07);
+        }
+
+        .valid-feedback {
+            color: #7FC6A6;
+        }
+
+        .invalid-feedback {
+            color: #E94F4F;
+        }
+
+        .btn-success {
+            background-color: #7FC6A6;
+            border-color: #7FC6A6;
+            color: #FFFFFF;
+        }
+
+        .btn-danger {
+            background-color: #E94F4F;
+            border-color: #E94F4F;
+            color: #FFFFFF;
+        }
+
+        .btn:hover {
+            background-color: var(--maocolor04);
+            color: #FFFFFF;
+        }
+
+        .btn-warning i {
+            font-size: 1rem;
+        }
+
+        .btn-sm.rounded-circle {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-warning {
+            background-color: var(--maocolor03);
+            border-color: var(--maocolor01);
+            color: var(--maocolor05);
+        }
+
+        .btn.btn-outline-primary.category-btn {
+            background-color: var(--maocolor03);
+            color: var(--maocolor05);
+            border: 1px solid var(--maocolor06);
+            border-radius: 10px;
+            padding: 0.5rem 1.5rem;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .btn.btn-outline-primary.category-btn:hover,
+        .btn.btn-outline-primary.category-btn.active {
+            background-color: var(--maocolor04);
+            color: #FFFFFF;
+            border-color: var(--maocolor04);
+        }
+
+        .d-flex {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+
+        #navbarDropdownMenuAvatar {
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        #s02_username_text {
+            white-space: nowrap;
+        }
+
+        .cart-item-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid var(--maocolor06);
+        }
+
+        .cart-item {
+            border-bottom: 1px solid var(--maocolor06);
+            padding: 10px 0;
+        }
+
+        .cart-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-controls .input-group {
+            width: 100px;
+        }
+
+        .quantity-input {
+            width: 50px;
+            height: 32px;
+            background-color: var(--maocolor08);
+            border: 1px solid var(--maocolor06);
+            color: var(--maocolor05);
+            text-align: center;
+            font-size: 1rem;
+            padding: 0;
+            border-radius: 4px;
+        }
+
+        .btn-outline-secondary {
+            border: 1px solid var(--maocolor06);
+            color: var(--maocolor05);
+            background-color: var(--maocolor08);
+            padding: 0.25rem 0.5rem;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: var(--maocolor04);
+            color: #FFFFFF;
+            border-color: var(--maocolor04);
+        }
+
+        .btn-link.text-danger {
+            font-size: 1rem;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .btn-link.text-danger:hover {
+            color: #dc3545 !important;
+        }
+
+        button {
+            margin-left: 5px;
+        }
+
+        #navbarDropdownMenuAvatar img {
+            object-fit: cover;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border: 1px solid var(--maocolor06);
+        }
+
+        #openRegisterModal {
+            color: var(--maocolor05);
+        }
+
+        #openRegisterModal:hover {
+            color: #FFFFFF !important;
+            background-color: var(--maocolor04);
+            text-decoration: none;
+        }
+
+        #navbarDropdownCart {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: var(--maocolor05);
+        }
+
+        #navbarDropdownCart i {
+            color: var(--maocolor05);
+        }
+
+        #navbarDropdownCart:hover i {
+            color: var(--maocolor04);
+        }
+
+        #cart-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.4rem;
+            background: var(--maocolor04);
+            color: #FFFFFF;
+            border-radius: 50%;
+        }
+
+        .dropdown-item-text .btn.view-cart-btn {
+            background: var(--maocolor03);
+            color: var(--maocolor05);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 10px;
+            transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .dropdown-item-text .btn.view-cart-btn:hover {
+            background: var(--maocolor04);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+        .dropdown-item-text {
+            color: var(--maocolor05);
+        }
+
+        .dropdown-item-text .btn:hover {
+            background: var(--maocolor04);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 168, 141, 0.3);
+        }
+
+        #s03 {
+            background-color: var(--maocolor02);
+            padding-top: 80px;
+        }
+
+        #s03 .panel-container {
+            display: flex;
+            width: 90vw;
+            margin: 0 auto;
+        }
+
+        #s03 .panel {
+            background: linear-gradient(135deg, var(--maocolor03), var(--maocolor04));
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 60vh;
+            border-radius: 50px;
+            color: var(--maocolor05);
+            cursor: pointer;
+            flex: 0.5;
+            margin: 10px;
+            position: relative;
+            transition: flex 0.5s ease-in;
+            will-change: flex;
+            transform: translateZ(0);
+            border: 1px solid var(--maocolor06);
+        }
+
+        #s03 .panel[data-bg="mao-banner11"] {
+            background-image: url(images/mao/mao-banner11.jpg);
+        }
+
+        #s03 .panel[data-bg="mao-banner07"] {
+            background-image: url(images/mao/mao-banner07.jpg);
+        }
+
+        #s03 .panel[data-bg="mao-banner04"] {
+            background-image: url(images/mao/mao-banner04.jpg);
+        }
+
+        #s03 .panel[data-bg="mao-banner09"] {
+            background-image: url(images/mao/mao-banner09.jpg);
+        }
+
+        #s03 .panel[data-bg="mao-banner12"] {
+            background-image: url(images/mao/mao-banner12.jpg);
+        }
+
+        #s03 .panel h3 {
+            font-size: 24px;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            margin: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease-in 0.2s;
+            color: var(--maocolor05);
+        }
+
+        #s03 .panel.active {
+            flex: 5;
+        }
+
+        #s03 .panel.active h3 {
+            opacity: 1;
+        }
+
+        #s04 {
+            background-color: var(--maocolor02);
+        }
+
+        #s04 .card-sleek {
+            color: var(--maocolor05);
+            border-radius: 20px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            overflow: hidden;
+            box-shadow: none;
+            max-width: 460px;
+            border: none;
+        }
+
+        #s04 .card-sleek:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        #s04 .card-sleek-orange {
+            background: linear-gradient(135deg, var(--maocolor03), var(--maocolor04));
+        }
+
+        #s04 .card-sleek-blue {
+            background: linear-gradient(135deg, var(--maocolor08), var(--maocolor06));
+        }
+
+        #s04 .card-sleek-green {
+            background: linear-gradient(135deg, var(--maocolor02), var(--maocolor03));
+        }
+
+        #s04 .card-sleek-pink {
+            background: linear-gradient(135deg, var(--maocolor02), var(--maocolor09));
+        }
+
+        #s04 .card-body {
+            padding: 2rem;
+        }
+
+        #s04 .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--maocolor05);
+        }
+
+        #s04 .card-text {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--maocolor05);
+        }
+
+        #s04 .card-img-top {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: 20px auto;
+            padding: 10px;
+        }
+
+        #s04 .btn-sleek {
+            background-color: var(--maocolor03);
+            color: var(--maocolor05);
+            font-weight: bold;
+            border-radius: 10px;
+            padding: 0.5rem 1.5rem;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        #s04 .btn-sleek:hover {
+            background-color: var(--maocolor04);
+            color: #FFFFFF;
+        }
+
+        #s05 {
+            background-color: var(--maocolor02);
+        }
+
+        #s05 .sleek-card {
+            color: var(--maocolor05);
+            border-radius: 20px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--maocolor08), var(--maocolor02));
+            box-shadow: none;
+        }
+
+        #s05 .sleek-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        #s05 .card-body {
+            padding: 2rem;
+            margin-top: -10px;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: var(--maocolor05);
+        }
+
+        .product-price {
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: var(--maocolor05);
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: var(--maocolor07);
+            text-align: center;
+        }
+
+        #s05 .card-img-top {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 30px;
+            padding: 10px 10px 0 10px;
+        }
+
+        #s05 .btn-primary {
+            background: linear-gradient(45deg, var(--maocolor03), var(--maocolor04));
+            border: none;
+            color: #FFFFFF;
+            padding: 0.5rem 1.5rem;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #s05 .btn-primary:hover {
+            background: var(--maocolor04);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 168, 141, 0.3);
+        }
+
+        #s06 {
+            background-color: var(--maocolor02);
+        }
+
+        #s06 .service-card {
+            perspective: 1000px;
+            height: 400px;
+        }
+
+        #s06 .service-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        #s06 .service-card:hover .service-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        #s06 .service-card-front,
+        #s06 .service-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        #s06 .service-card-front {
+            background: linear-gradient(45deg, var(--maocolor03), var(--maocolor04));
+            color: var(--maocolor05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        #s06 .service-card-back {
+            background: var(--maocolor03);
+            color: var(--maocolor05);
+            transform: rotateY(180deg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #s06 .icon-wrapper {
+            width: 100px;
+            height: 100px;
+            background: rgba(201, 168, 141, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        #s06 .qa-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 10px;
+        }
+
+        #s06 .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #s06 .feature-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--maocolor06);
+        }
+
+        #s06 .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        #s06 .btn-primary {
+            background: var(--maocolor03);
+            border: none;
+            color: var(--maocolor05);
+            padding: 0.5rem 1.5rem;
+            border-radius: 10px;
+            transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        #s06 .btn-primary:hover {
+            background: var(--maocolor04);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 168, 141, 0.3);
+        }
+
+        #s07.steps-section {
+            background-color: var(--maocolor02);
+            padding: 5rem 0;
+        }
+
+        #s07 .step-item {
+            position: relative;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        #s07 .step-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        #s07 .step-icon span {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border-radius: 50%;
+            color: #FFFFFF;
+        }
+
+        #s07 .step-icon-small {
+            font-size: 1.2rem;
+            color: var(--maocolor07);
+        }
+
+        #s07 .step-item::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -15px;
+            width: 30px;
+            height: 2px;
+            background-color: var(--maocolor06);
+            transform: translateY(-50%);
+        }
+
+        #s07 .step-item:last-child::after {
+            display: none;
+        }
+
+        #s07 h3.h5 {
+            color: var(--maocolor05);
+        }
+
+        #s07 p.text-muted {
+            color: var(--maocolor07);
+        }
+
+        #s07 .step-bg-1 {
+            background-color: #F5E8D3;
+        }
+
+        #s07 .step-bg-1 .step-icon span {
+            background: linear-gradient(45deg, #F5E8D3, #E8D1BA);
+        }
+
+        #s07 .step-bg-2 {
+            background-color: #E8D1BA;
+        }
+
+        #s07 .step-bg-2 .step-icon span {
+            background: linear-gradient(45deg, #E8D1BA, #C9A88D);
+        }
+
+        #s07 .step-bg-3 {
+            background-color: #C9A88D;
+        }
+
+        #s07 .step-bg-3 .step-icon span {
+            background: linear-gradient(45deg, #C9A88D, #A68A6F);
+        }
+
+        #s07 .step-bg-4 {
+            background-color: #A68A6F;
+        }
+
+        #s07 .step-bg-4 .step-icon span {
+            background: linear-gradient(45deg, #A68A6F, #8C7560);
+        }
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            background-color: var(--maocolor02);
+        }
+
+        .slider-wrapper {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .slider-content {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slider-content .col-lg-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+
+        .slider-content .product-card {
+            padding: 0 10px;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(201, 168, 141, 0.8);
+            color: #FFFFFF;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background: var(--maocolor04);
+        }
+
+        .slider-btn-left {
+            left: 10px;
+        }
+
+        .slider-btn-right {
+            right: 10px;
+        }
+
+        .more-card {
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            text-decoration: none;
+            color: var(--maocolor05);
+            height: 100%;
+            box-shadow: none;
+        }
+
+        .more-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .more-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .more-card i {
+            transition: transform 0.3s ease;
+            color: var(--maocolor04);
+        }
+
+        .more-card:hover i {
+            transform: translateX(5px);
+        }
+
+        .modern-footer {
+            background-color: var(--maocolor02);
+            border-top: 1px solid var(--maocolor06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modern-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(201, 168, 141, 0.1), rgba(0, 0, 0, 0));
+            z-index: 1;
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--maocolor05);
+            text-decoration: none;
+        }
+
+        .footer-title {
+            color: var(--maocolor05);
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--maocolor04), transparent);
+        }
+
+        .contact-info {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-info li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--maocolor05);
+        }
+
+        .contact-info i {
+            color: var(--maocolor04);
+            width: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--maocolor08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--maocolor05);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            color: var(--maocolor04);
+            box-shadow: 0 5px 15px rgba(201, 168, 141, 0.2);
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            padding: 0;
+            list-style: none;
+        }
+
+        .quick-links a {
+            color: var(--maocolor05);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quick-links a:hover {
+            color: var(--maocolor04);
+            transform: translateX(5px);
+        }
+
+        .quick-links a::before {
+            content: '→';
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .quick-links a:hover::before {
+            opacity: 1;
+        }
+
+        .newsletter-input {
+            border: none;
+            padding: 0.8rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            background: var(--maocolor08);
+            color: var(--maocolor05);
+        }
+
+        .btn-subscribe {
+            background: var(--maocolor03);
+            border: none;
+            box-shadow: 0 2px 10px rgba(201, 168, 141, 0.2);
+            padding: 0.8rem 2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            color: var(--maocolor05);
+        }
+
+        .btn-subscribe:hover {
+            background: var(--maocolor04);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 168, 141, 0.3);
+        }
+
+        .footer-bottom {
+            background: var(--maocolor02);
+            border-top: 1px solid var(--maocolor06);
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            color: var(--maocolor07);
+        }
+
+        .footer-bottom a {
+            color: var(--maocolor04);
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--maocolor03), var(--maocolor04));
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: var(--maocolor04);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(201, 168, 141, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #s02 .navbar.fixed-top {
+            background: var(--maocolor01);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #previewImg_reg {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        @media (max-width: 767.98px) {
+            #s07 .step-item::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slider-content .col-lg-3 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .slider-content .col-lg-3 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #s03 .panel-container {
+                width: 100vw;
+            }
+
+            #s03 .panel:nth-of-type(4),
+            #s03 .panel:nth-of-type(5) {
+                display: none;
+            }
+        }
+
+        @media (min-width: 992px) {
+
+            #control_panel_btn .dropdown-menu,
+            #s02_avatar_section .dropdown-menu {
+                right: 0;
+                left: auto;
+            }
+
+            .navbar-collapse {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .navbar-nav.me-auto {
+                flex-grow: 0;
+            }
+
+            .user-menu-container {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-left: auto;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .user-menu-container {
+                display: flex !important;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+                justify-content: flex-start;
+                margin-top: 0.5rem;
+            }
+
+            .dropdown-menu {
+                left: 0 !important;
+                right: auto !important;
+            }
+
+            .user-menu-container .dropdown {
+                width: 100%;
+            }
+
+            .user-menu-container .dropdown a {
+                text-align: left;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <section id="s02" class="bg-01">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg fixed-top bg-01">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#"><i class="fa-solid fa-paw fa-2x"></i></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item"><a class="nav-link" href="Mao-index_v1.html#s03">首頁</a></li>
+                                <li class="nav-item"><a class="nav-link" href="Mao-index_v1.html#s04">關於毛毛</a></li>
+                                <li class="nav-item"><a class="nav-link" href="Mao-index_v1.html#s05">商品展示</a></li>
+                                <li class="nav-item"><a class="nav-link" href="Mao-index_v1.html#s07">租賃流程</a></li>
+                                <li class="nav-item"><a class="nav-link" href="Mao-index_v1.html#s06">Q&A</a></li>
+                            </ul>
+                            <div class="d-flex align-items-center user-menu-container" id="s02_login_show">
+                                <div class="dropdown" id="control_panel_btn">
+                                    <a class="nav-link dropdown-toggle fw-500 tx-08 me-2" href="#"
+                                        id="navbarDropdownMenuAdminPanel" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">後台管理</a>
+                                    <ul class="dropdown-menu dropdown-menu-end backend-dropdown"
+                                        aria-labelledby="navbarDropdownMenuAdminPanel">
+                                        <li><a class="dropdown-item" href="mao-users-control-panel_v1.html"
+                                                target="_blank">Member - Control</a></li>
+                                        <li><a class="dropdown-item" href="mao-products-R-control-panel_v1.html"
+                                                target="_blank">Product - Control</a></li>
+                                        <li><a class="dropdown-item" href="mao-orders-control-panel_v1.html"
+                                                target="_blank">Order - Control</a></li>
+                                        <li><a class="dropdown-item" href="mao-chart-control-panel_v1.html"
+                                                target="_blank">Chart - Control</a></li>
+                                    </ul>
+                                </div>
+                                <div class="dropdown" id="member_area_btn">
+                                    <a class="nav-link dropdown-toggle fw-500 tx-08 me-2" href="#"
+                                        id="navbarDropdownMenuMemberArea" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">會員專區</a>
+                                    <ul class="dropdown-menu dropdown-menu-end backend-dropdown"
+                                        aria-labelledby="navbarDropdownMenuMemberArea">
+                                        <li><a class="dropdown-item" href="20250213-taipeiHotel.html"
+                                                target="_blank">Taipei Hotel - Card</a></li>
+                                        <li><a class="dropdown-item" href="SPA-member-control-panel-maskmap_v1.html"
+                                                target="_blank">Mask - map</a></li>
+                                        <li><a class="dropdown-item" href="SPA-member-control-panel-youbikemap_v1.html"
+                                                target="_blank">Youbike - map</a></li>
+                                        <li><a class="dropdown-item" href="SPA-member-control-panel-hotelmap_v1.html"
+                                                target="_blank">Hotel - map</a></li>
+                                        <li><a class="dropdown-item" href="20250213-taipeiHotel-map.html"
+                                                target="_blank">Taipei Hotel - map</a></li>
+                                        <li><a class="dropdown-item" href="20250211-control-panel.html"
+                                                target="_blank">Member - Chart</a></li>
+                                        <li><a class="dropdown-item" href="20250214-taipeiHotel-chart.html"
+                                                target="_blank">Taipei Hotel - Chart</a></li>
+                                        <li><a class="dropdown-item" href="SPA-member-control-panel-hotel_C_v1.html"
+                                                target="_blank">hotel_C - Chart</a></li>
+                                        <li><a class="dropdown-item" href="20250218-taichung-parking-chart.html"
+                                                target="_blank">Taichung Parking - Chart</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="dropdown" id="s02_avatar_section">
+                                    <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+                                        id="navbarDropdownMenuAvatar" role="button" aria-expanded="false"
+                                        data-bs-toggle="dropdown">
+                                        <img :src="user.Userphoto ? 'uploads/users/' + user.Userphoto : 'https://mdbcdn.b-cdn.net/img/new/avatars/2.webp'"
+                                            class="rounded-circle" height="40" width="40" alt="User Avatar"
+                                            loading="lazy" />
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end profile-dropdown"
+                                        aria-labelledby="navbarDropdownMenuAvatar">
+                                        <li>
+                                            <a class="dropdown-item h5 fw-500" href="#">
+                                                <span id="s02_username_showtext">
+                                                    <span class="d-none" id="s02_level_text"></span>
+                                                    <br>
+                                                    <span class="d-none mt-3" id="s02_username_text">{{ user.Username ||
+                                                        'XXX' }}</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="mao-profile.html">會員中心</a></li>
+                                        <li><a class="dropdown-item" href="#">
+                                                <button class="btn bg-02 tx-05" @click="logout"
+                                                    id="s02_logout_btn">登出</button></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button class="btn bg-02 me-2" data-bs-toggle="modal" data-bs-target="#registerModal"
+                                    id="s02_reg_btn">註冊</button>
+                                <button class="btn bg-03 tx-05" data-bs-toggle="modal" data-bs-target="#loginModal"
+                                    id="s02_login_btn">登入</button>
+                                <div class="cart-wrapper">
+                                    <div class="dropdown ms-2" v-if="cartItems.length > 0 || true">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCart"
+                                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-shopping-cart fa-lg"></i>
+                                            <span class="badge bg-danger rounded-pill" id="cart-count">{{
+                                                totalCartQuantity }}</span>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end cart-dropdown"
+                                            aria-labelledby="navbarDropdownCart">
+                                            <li class="dropdown-item-text text-center">
+                                                <h6 class="fw-bold">購物車</h6>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li v-if="cartItems.length === 0" class="dropdown-item-text px-3 py-2">
+                                                <p class="mb-0 text-muted">您的購物車目前是空的</p>
+                                            </li>
+                                            <li v-for="item in cartItems" :key="item.Product_id"
+                                                class="dropdown-item-text px-3 py-2 cart-item">
+                                                <div class="d-flex align-items-center">
+                                                    <img :src="'uploads/' + item.Photo" alt="商品圖片"
+                                                        class="cart-item-img me-2">
+                                                    <div class="me-2">
+                                                        <strong>{{ item.Pname }}</strong>
+                                                        <span class="d-block">{{ item.Price }} 元/天</span>
+                                                    </div>
+                                                    <div class="cart-controls ms-auto d-flex align-items-center">
+                                                        <div class="input-group input-group-sm me-2">
+                                                            <button class="btn btn-outline-secondary" type="button"
+                                                                @click="decreaseQuantity(item)">-</button>
+                                                            <input type="text"
+                                                                class="form-control text-center quantity-input"
+                                                                v-model="item.quantity" readonly>
+                                                            <button class="btn btn-outline-secondary" type="button"
+                                                                @click="increaseQuantity(item)">+</button>
+                                                        </div>
+                                                        <button class="btn btn-link text-danger p-0"
+                                                            @click="removeFromCart(item.Product_id)" title="移除">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="dropdown-item-text text-center mt-2" v-if="cartItems.length > 0">
+                                                <a href="mao-products.html" class="btn btn-sm view-cart-btn">查看購物車</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </section>
+
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-02">
+                        <h1 class="modal-title fs-5 fw-900 tx-05" id="exampleModalLabel">會員註冊</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="username_reg" class="form-label">帳號</label>
+                                    <input type="text" class="form-control is-invalid" name="username_reg"
+                                        id="username_reg" placeholder="3-8字數">
+                                    <div class="valid-feedback" id="regModal_username_valid_feedback">符合規定</div>
+                                    <div class="invalid-feedback" id="regModal_username_invalid_feedback">不符合規定</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password_reg" class="form-label">密碼</label>
+                                    <input type="password" class="form-control is-invalid" name="password_reg"
+                                        id="password_reg" placeholder="3-6字數">
+                                    <div class="form-text">不會記錄任何資料</div>
+                                    <div class="valid-feedback">符合規定</div>
+                                    <div class="invalid-feedback">不符合規定</div>
+                                </div>
+                                <div class="mb-3 form-floating">
+                                    <input type="password" class="form-control is-invalid" id="re_password_reg"
+                                        name="re_password_reg">
+                                    <label for="re_password_reg" class="form-label">再次輸入密碼</label>
+                                    <div class="form-text">不會記錄任何資料</div>
+                                    <div class="valid-feedback">符合規定</div>
+                                    <div class="invalid-feedback">不符合規定</div>
+                                </div>
+                                <div class="mb-3 form-floating">
+                                    <input type="text" class="form-control is-invalid" placeholder="3-20字數"
+                                        id="email_reg" name="email_reg">
+                                    <label for="email_reg" class="form-label">Email : example@example.com</label>
+                                    <div class="valid-feedback">符合規定</div>
+                                    <div class="invalid-feedback">不符合規定</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="h-100">
+                                    <div class="mb-3">
+                                        <label for="mycity" class="form-label">居住地</label>
+                                        <select name="region" id="mycity" class="form-select text-center" required>
+                                            <option value="" selected disabled>----選擇縣市名稱----</option>
+                                            <option value="台北市">台北市</option>
+                                            <option value="台中市">台中市</option>
+                                            <option value="台南市">台南市</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="photo_reg" class="form-label">個人頭像</label>
+                                        <input type="file" class="form-control" id="photo_reg" name="photo_reg"
+                                            accept="image/*">
+                                        <div class="valid-feedback">圖片格式正確</div>
+                                        <div class="invalid-feedback">請選擇有效的圖片檔案</div>
+                                        <div class="mt-3 text-center" id="image_preview_container">
+                                            <img id="previewImg_reg" src="" class="rounded rounded-circle d-none">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn bg-02" id="ok_btn_reg">確認</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-01">
+                        <h1 class="modal-title fs-4 fw-900 tx-05" id="exampleModalLabel">會員登入</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="username_login" class="form-label">帳號</label>
+                            <input type="text" class="form-control" id="username_login" name="username_login">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password_login" class="form-label">密碼</label>
+                            <input type="password" class="form-control" id="password_login" name="password_login">
+                            <div class="form-text">不會記錄任何資料</div>
+                        </div>
+                        <div class="text-center mt-2">
+                            <button class="btn btn-link tx-05" id="openRegisterModal">還沒有帳號？點擊立即註冊！</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn bg-01 tx-05" id="ok_btn_login">確認</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="s03" class="py-5 mt-5 pt-5">
+            <div class="container panel-container">
+                <div class="panel active" data-bg="mao-banner11">
+                    <h3>寵物玩具樂園</h3>
+                </div>
+                <div class="panel" data-bg="mao-banner07">
+                    <h3>舒適寵物窩</h3>
+                </div>
+                <div class="panel" data-bg="mao-banner04">
+                    <h3>毛孩的快樂源泉</h3>
+                </div>
+                <div class="panel" data-bg="mao-banner09">
+                    <h3>訓練用品</h3>
+                </div>
+                <div class="panel" data-bg="mao-banner12">
+                    <h3>旅行配件</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="s04" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold">毛毛的使命與價值</h2>
+                <div class="row justify-content-center g-4">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card card-sleek card-sleek-orange h-100">
+                            <img src="images/mao/mao-company01.png" class="card-img-top" alt="我們的願景">
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold">我們的願景</h5>
+                                <p class="card-text">打造一個讓每隻毛孩都能享受高品質生活的平台，提供靈活的租賃服務，讓飼主省心又省力。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card card-sleek card-sleek-blue h-100">
+                            <img src="images/mao/mao-company02.png" class="card-img-top" alt="永續經營">
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold">永續經營</h5>
+                                <p class="card-text">透過租賃模式減少浪費，推廣環保理念，讓寵物用品循環使用，為地球盡一份心力。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card card-sleek card-sleek-green h-100">
+                            <img src="images/mao/mao-company03.png" class="card-img-top" alt="毛孩優先">
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold">毛孩優先</h5>
+                                <p class="card-text">我們用心挑選安全、舒適又有趣的產品，確保每隻毛孩都能感受到愛與關懷。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card card-sleek card-sleek-pink h-100">
+                            <img src="images/mao/mao-company04.png" class="card-img-top" alt="貼心服務">
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold">貼心服務</h5>
+                                <p class="card-text">從租賃流程到客服支援，我們致力提供簡單、便捷的體驗，讓您與毛孩無後顧之憂。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s05" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold">租賃商品</h2>
+                <div class="text-center mb-4">
+                    <button class="btn btn-outline-primary mx-2 category-btn"
+                        :class="{ 'active': selectedCategory === 'all' }" @click="filterCategory('all')">所有商品</button>
+                    <button v-for="category in uniqueCategories" :key="category"
+                        class="btn btn-outline-primary mx-2 category-btn"
+                        :class="{ 'active': selectedCategory === category }" @click="filterCategory(category)">{{
+                        categoryName(category) }}</button>
+                </div>
+                <div class="slider-container position-relative">
+                    <button class="slider-btn slider-btn-left" @click="slideLeft" v-if="currentSlide > 0"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn slider-btn-right" @click="slideRight" v-if="currentSlide < totalSlides"><i
+                            class="fas fa-chevron-right"></i></button>
+                    <div class="slider-wrapper" id="sliderWrapper">
+                        <div class="slider-content" id="mydata">
+                            <div class="col-lg-3 col-md-4 mt-3 product-card" v-for="item in displayedProducts"
+                                :key="item.Product_id">
+                                <div class="card h-100 sleek-card">
+                                    <div class="text-center">
+                                        <img :src="'uploads/' + item.Photo" class="card-img-top bg-cover pt-2"
+                                            alt="商品圖片" height="180px">
+                                    </div>
+                                    <div class="card-body px-3 d-flex flex-column">
+                                        <div class="mb-2">
+                                            <div class="product-name text-center">{{ item.Pname }}</div>
+                                            <div class="product-price text-center">${{ item.Price }} 元/天</div>
+                                            <div class="product-description">{{ item.Premark }}</div>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-auto">
+                                            <button class="btn btn-warning btn-sm rounded-circle"
+                                                @click="addToCart(item)" title="加入購物車">
+                                                <i class="fas fa-cart-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-4 mt-3 product-card" v-if="filteredProducts.length > 10">
+                                <a href="mao-products.html" class="card more-card h-100">
+                                    <div class="card-body text-center d-flex flex-column justify-content-center">
+                                        <i class="fas fa-arrow-right fa-2x mb-2"></i>
+                                        <p class="mb-0">顯示更多</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="!displayedProducts.length" class="text-center">
+                    <p class="text-muted">目前沒有符合條件的商品</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="s07" class="steps-section py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold">毛孩租賃體驗</h2>
+                <div class="row">
+                    <div class="col-md-3 mb-4 mb-md-0">
+                        <div class="step-item step-bg-1 text-center">
+                            <div class="step-icon mb-3">
+                                <span class="text-white rounded-circle d-inline-block p-3">
+                                    <i class="fas fa-paw fs-2"></i>
+                                </span>
+                            </div>
+                            <h3 class="h5">步驟 1</h3>
+                            <p class="text-muted">瀏覽並選擇商品</p>
+                            <div class="step-icon-small mt-2">
+                                <i class="fas fa-paw text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4 mb-md-0">
+                        <div class="step-item step-bg-2 text-center">
+                            <div class="step-icon mb-3">
+                                <span class="text-white rounded-circle d-inline-block p-3">
+                                    <i class="fas fa-shopping-cart fs-2"></i>
+                                </span>
+                            </div>
+                            <h3 class="h5">步驟 2</h3>
+                            <p class="text-muted">加入購物車</p>
+                            <div class="step-icon-small mt-2">
+                                <i class="fas fa-bone text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4 mb-md-0">
+                        <div class="step-item step-bg-3 text-center">
+                            <div class="step-icon mb-3">
+                                <span class="text-white rounded-circle d-inline-block p-3">
+                                    <i class="fas fa-file-alt fs-2"></i>
+                                </span>
+                            </div>
+                            <h3 class="h5">步驟 3</h3>
+                            <p class="text-muted">填寫租賃表單</p>
+                            <div class="step-icon-small mt-2">
+                                <i class="fas fa-cat text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="step-item step-bg-4 text-center">
+                            <div class="step-icon mb-3">
+                                <span class="text-white rounded-circle d-inline-block p-3">
+                                    <i class="fas fa-truck fs-2"></i>
+                                </span>
+                            </div>
+                            <h3 class="h5">步驟 4</h3>
+                            <p class="text-muted">等待配送與使用</p>
+                            <div class="step-icon-small mt-2">
+                                <i class="fas fa-dog text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s06" class="py-5">
+            <div class="container py-5">
+                <h2 class="text-center mb-5 fw-bold">常見問題</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="service-card hover-lift">
+                            <div class="service-card-inner">
+                                <div class="service-card-front">
+                                    <div class="icon-wrapper">
+                                        <img src="images/mao/mao-qa01.png" alt="租賃流程圖示" class="qa-image">
+                                    </div>
+                                    <h3 class="h4 mb-2">如何租賃寵物用品？</h3>
+                                    <p class="text-center mb-0">了解我們的租賃流程</p>
+                                </div>
+                                <div class="service-card-back">
+                                    <h4 class="mb-3">租賃步驟</h4>
+                                    <ul class="feature-list">
+                                        <li>註冊會員並登入</li>
+                                        <li>選擇商品並加入購物車</li>
+                                        <li>填寫租賃表單</li>
+                                        <li>完成付款後等待配送</li>
+                                    </ul>
+                                    <a href="#" class="btn btn-primary mt-4">了解更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="service-card hover-lift">
+                            <div class="service-card-inner">
+                                <div class="service-card-front">
+                                    <div class="icon-wrapper">
+                                        <img src="images/mao/mao-qa02.png" alt="安全保證圖示" class="qa-image">
+                                    </div>
+                                    <h3 class="h4 mb-2">商品安全嗎？</h3>
+                                    <p class="text-center mb-0">我們的品質保證</p>
+                                </div>
+                                <div class="service-card-back">
+                                    <h4 class="mb-3">安全承諾</h4>
+                                    <ul class="feature-list">
+                                        <li>所有商品經過清潔消毒</li>
+                                        <li>使用無毒材料製造</li>
+                                        <li>定期檢查與維護</li>
+                                        <li>符合寵物安全標準</li>
+                                    </ul>
+                                    <a href="#" class="btn btn-primary mt-4">了解更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="service-card hover-lift">
+                            <div class="service-card-inner">
+                                <div class="service-card-front">
+                                    <div class="icon-wrapper">
+                                        <img src="images/mao/mao-qa03.png" alt="配送圖示" class="qa-image">
+                                    </div>
+                                    <h3 class="h4 mb-2">配送與歸還</h3>
+                                    <p class="text-center mb-0">租賃後的物流資訊</p>
+                                </div>
+                                <div class="service-card-back">
+                                    <h4 class="mb-3">配送說明</h4>
+                                    <ul class="feature-list">
+                                        <li>配送範圍：全台</li>
+                                        <li>預計到貨：付款後 2-3 天</li>
+                                        <li>歸還方式：預約寄回</li>
+                                        <li>免運費條件：滿額免運</li>
+                                    </ul>
+                                    <a href="#" class="btn btn-primary mt-4">了解更多</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <button id="back-to-top" class="btn back-to-top" @click="scrollToTop">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
+        <section id="footer">
+            <footer class="modern-footer pt-5">
+                <div class="container footer-content">
+                    <div class="row g-4 mb-5">
+                        <div class="col-lg-4 col-md-6">
+                            <a href="#" class="footer-logo d-block mb-4">
+                                毛毛 MaoMao<span class="text-primary">.</span>
+                            </a>
+                            <p class="text-muted mb-4">毛毛致力於為您的毛孩提供高品質的租賃用品，讓每隻寵物都能享受舒適與快樂的生活。我們以永續經營為目標，創造飼主與毛孩的幸福時光。
+                            </p>
+                            <ul class="contact-info mb-4">
+                                <li>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>台北市中山區南京東路三段100號10樓<br>Taipei, Taiwan</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    <span>+886 (2) 1234-5678</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                            data-cfemail="3e5c505a4d535c7e5b465f534e525b105d5153">[email&#160;protected]</a></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <h3 class="footer-title">快速連結</h3>
+                            <ul class="quick-links">
+                                <li><a href="#s03">首頁</a></li>
+                                <li><a href="#">關於我們</a></li>
+                                <li><a href="#">商品展示</a></li>
+                                <li><a href="#">租賃表單</a></li>
+                                <li><a href="#">常見問題與客服</a></li>
+                                <li><a href="#">租賃政策</a></li>
+                                <li><a href="#">隱私權政策</a></li>
+                                <li><a href="#">服務條款</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <h3 class="footer-title">保持聯繫</h3>
+                            <p class="text-muted mb-4">訂閱我們的電子報，獲取最新的寵物用品資訊與優惠活動！</p>
+                            <form class="mb-4">
+                                <div class="mb-3">
+                                    <input type="email" class="form-control newsletter-input" placeholder="輸入您的電子郵件">
+                                </div>
+                                <button type="submit" class="btn btn-subscribe text-white w-100">立即訂閱</button>
+                            </form>
+                            <div class="social-links">
+                                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-line"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="row py-4">
+                            <div class="col-md-6 text-center text-md-start">
+                                <p>© 2025 毛毛 MaoMao. 版權所有。</p>
+                            </div>
+                            <div class="col-md-6 text-center text-md-end">
+                                <p>由 <a href="#">毛毛團隊</a> 傾心打造 <i class="fas fa-heart text-danger"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </div>
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js">	</script>
+    <script src="js/wow.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/mao-auth.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const panels = document.querySelectorAll('#s03 .panel');
+
+            panels.forEach(panel => {
+                panel.addEventListener('click', () => {
+                    removeActiveClasses();
+                    panel.classList.add('active');
+                });
+            });
+
+            function removeActiveClasses() {
+                panels.forEach(panel => {
+                    panel.classList.remove('active');
+                });
+            }
+        });
+    </script>
+    <script>
+        var allCityData;  
+        var mycity;  
+
+        var flag_username_reg = false;
+        var flag_password_reg = false;
+        var flag_re_password_reg = false;
+        var flag_email_reg = false;
+        var flag_photo_reg = false;
+        var flag_mycity = false;
+        var photoname = '';
+        var flag_username_login = false;
+        var flag_password_login = false;
+        var reg_username_login;
+        var reg_password_login;
+
+        $(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "js/CityCountyData.json",
+                dataType: "json",
+                success: function (data) {
+                    allCityData = data;
+
+                    //產生縣市選單
+                    $("#mycity").empty();
+                    $("#mycity").append('<option value="" selected disabled>----選擇縣市名稱----</option>');
+                    allCityData.forEach(function (item) {
+                        var strHTML = `<option value="${item.CityName}">${item.CityName}</option>`;
+                        $("#mycity").append(strHTML);
+                    });
+                },
+                error: function () {
+                    Swal.fire({
+                        title: "API 介接錯誤",
+                        text: "js/CityCountyData.json",
+                        icon: "error"
+                    });
+                }
+            });
+
+            if (getCookie("Uid01")) {
+                $("#s02_reg_btn").addClass("d-none");
+                $("#s02_login_btn").addClass("d-none");
+                $("#navbarDropdownCart").closest('.dropdown').show();
+                $("#s02_login_show").removeClass("d-none"); 
+                var JSONdata = {};
+                JSONdata["uid01"] = getCookie("Uid01");
+
+                $.ajax({
+                    type: "POST",
+                    url: "mao-users-control-api_v1.php?action=checkuid",
+                    data: JSON.stringify(JSONdata),
+                    dataType: "json",
+                    success: showdata_checkuid,
+                    error: function () {
+                        Swal.fire({
+                            title: "API 介接錯誤",
+                            text: "mao-users-control-api_v1.php",
+                            icon: "error",
+                            allowOutsideClick: false,
+                        });
+                    }
+                });
+            } else {
+                $("#s02_reg_btn").removeClass("d-none");
+                $("#s02_login_btn").removeClass("d-none");
+                $("#s02_avatar_section").addClass("d-none");
+                $("#s02_logout_btn").addClass("d-none");
+                $("#control_panel_btn").addClass("d-none");
+                $("#navbarDropdownCart").closest('.dropdown').hide(); 
+                $("#s02_login_show").removeClass("d-none"); 
+                Swal.fire({
+                    title: "請先登入會員",
+                    icon: "info",
+                    allowOutsideClick: false,
+                    confirmButtonText: "確定"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#loginModal').modal('show'); 
+                    }
+                });
+            }
+
+            $("#username_reg").bind("input propertychange", function () {
+                if ($(this).val().length > 2 && $(this).val().length < 9) {
+                    var JSONdata = {};
+                    JSONdata["username"] = $("#username_reg").val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "mao-users-control-api_v1.php?action=checkuni",
+                        data: JSON.stringify(JSONdata),
+                        dataType: "json",
+                        success: showdata_checkuni,
+                        error: function () {
+                            Swal.fire({
+                                title: "API 介接錯誤",
+                                text: "mao-users-control-api_v1.php?action=checkuni",
+                                icon: "error"
+                            });
+                        }
+                    });
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    $("#regModal_username_invalid_feedback").text("不符合規則");
+                    flag_username_reg = false;
+                }
+            });
+
+            $("#password_reg").bind("input propertychange", function () {
+
+                $("#re_password_reg").removeClass("is-valid");
+                $("#re_password_reg").addClass("is-invalid");
+                flag_re_password_reg = false;
+
+                if ($(this).val().length > 2 && $(this).val().length < 7) {
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_password_reg = true;
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_password_reg = false;
+                }
+            });
+
+            $("#re_password_reg").bind("input propertychange", function () {
+                if (flag_password_reg && $(this).val() === $("#password_reg").val()) {
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_re_password_reg = true;
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_re_password_reg = false;
+                }
+            });
+
+            $("#email_reg").bind("input propertychange", function () {
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailPattern.test($(this).val())) {
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_email_reg = true;
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_email_reg = false;
+                }
+            });
+
+            $("#mycity").change(function () {
+                if ($(this).val()) {
+                    flag_mycity = true;
+                } else {
+                    flag_mycity = false;
+                }
+            });
+
+            $("#photo_reg").change(function () {
+                var file = photo_reg.files[0]; 
+                if (file && (file.type == "image/jpeg" || file.type == "image/png")) {
+                    $("#previewImg_reg").removeClass("d-none").attr("src", URL.createObjectURL(file));
+                    $photoname = file.name; 
+                    $(this).removeClass("is-invalid").addClass("is-valid");
+                    flag_photo_reg = true;
+                } else {
+                    $(this).removeClass("is-valid").addClass("is-invalid");
+                    $("#previewImg_reg").addClass("d-none"); 
+                    flag_photo_reg = false;
+                }
+            });
+
+            $("#username_login").bind("input propertychange", function () {
+                if ($(this).val().length > 0) {
+                    flag_username_login = true;
+                } else {
+                    flag_username_login = false;
+                }
+            });
+
+            $("#password_login").bind("input propertychange", function () {
+                if ($(this).val().length > 0) {
+                    flag_password_login = true;
+                } else {
+                    flag_password_login = false;
+                }
+            });
+
+            $("#openRegisterModal").click(function () {
+                $("#loginModal").modal("hide"); 
+                setTimeout(function () {
+                    $("#registerModal").modal("show"); 
+                }, 300);
+            });
+
+            $("#ok_btn_reg").click(function () {
+                if (flag_username_reg && flag_password_reg && flag_re_password_reg && flag_email_reg && flag_mycity && flag_photo_reg) {
+                    var formData = new FormData();
+                    formData.append("username", $("#username_reg").val());
+                    formData.append("password", $("#password_reg").val());
+                    formData.append("email", $("#email_reg").val());
+                    formData.append("region", $("#mycity").val());
+                    formData.append("photo", $("#photo_reg")[0].files[0]);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "mao-users-control-api_v1.php?action=register",
+                        data: formData,
+                        dataType: "json",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            if (data.state) {
+                                var loginData = {
+                                    "username": $("#username_reg").val(),
+                                    "password": $("#password_reg").val()
+                                };
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "mao-users-control-api_v1.php?action=login",
+                                    data: JSON.stringify(loginData),
+                                    dataType: "json",
+                                    success: function (loginData) {
+                                        if (loginData.state) {
+                                            localStorage.setItem('user', JSON.stringify(loginData.data));
+                                            Swal.fire({
+                                                title: "註冊並登入成功",
+                                                icon: "success",
+                                                allowOutsideClick: false,
+                                                confirmButtonText: "確定"
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    $("#registerModal").modal("hide");
+                                                    $("#s02_username_text").removeClass("d-none").text(loginData.data.Username);
+                                                    var userPhotoUrl = "uploads/users/" + loginData.data.Userphoto;
+                                                    $("#navbarDropdownMenuAvatar img").attr("src", userPhotoUrl);
+                                                    $("#s02_avatar_section").removeClass("d-none");
+                                                    $("#s02_reg_btn").addClass("d-none");
+                                                    $("#s02_login_btn").addClass("d-none");
+                                                    $("#s02_logout_btn").removeClass("d-none");
+                                                    $("#control_panel_btn").removeClass("d-none");
+                                                    $("#s02_login_show").removeClass("d-none");
+                                                    setCookie("Uid01", loginData.data.Uid01, 7);
+                                                    window.location.href = "Mao-index_v1.html?timestamp=" + new Date().getTime();
+                                                }
+                                            });
+                                        } else {
+                                            Swal.fire({
+                                                title: "登入失敗",
+                                                text: loginData.message,
+                                                icon: "error",
+                                                confirmButtonText: "確定"
+                                            });
+                                        }
+                                    },
+                                    error: function () {
+                                        Swal.fire({
+                                            title: "登入失敗",
+                                            text: "伺服器錯誤，請稍後再試",
+                                            icon: "error"
+                                        });
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "註冊失敗",
+                                    text: data.message,
+                                    icon: "error"
+                                });
+                            }
+                        },
+                        error: function () {
+                            Swal.fire({
+                                title: "註冊失敗",
+                                text: "伺服器錯誤，請稍後再試",
+                                icon: "error"
+                            });
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: "請填寫完整且正確的資料",
+                        text: "所有欄位均需符合規定",
+                        icon: "warning"
+                    });
+                }
+            });
+
+
+            $("#ok_btn_login").click(function () {
+                if (flag_username_login && flag_password_login) {
+                    var JSONdata = {};
+                    JSONdata["username"] = $("#username_login").val();
+                    JSONdata["password"] = $("#password_login").val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "mao-users-control-api_v1.php?action=login",
+                        data: JSON.stringify(JSONdata),
+                        dataType: "json",
+                        success: showdata_login,
+                        error: function () {
+                            Swal.fire({
+                                title: "API 介接錯誤",
+                                text: "mao-users-control-api_v1.php?action=login",
+                                icon: "error"
+                            });
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: "輸入錯誤!",
+                        text: "請輸入帳號或密碼!",
+                        icon: "error"
+                    });
+                }
+            });
+
+            $("#s02_logout_btn").click(function () {
+                setCookie("Uid01", "", 7);
+                localStorage.removeItem('user');
+                $("#s02_reg_btn").removeClass("d-none"); 
+                $("#s02_login_btn").removeClass("d-none"); 
+                $("#s02_avatar_section").addClass("d-none");
+                $("#s02_logout_btn").addClass("d-none");
+                $("#control_panel_btn").addClass("d-none");
+                $("#navbarDropdownCart").closest('.dropdown').hide();
+                window.location.href = "Mao-index_v1.html?timestamp=" + new Date().getTime();
+            });
+        });
+
+        function showdata_login(data) {
+            if (data.state) {
+                localStorage.setItem('user', JSON.stringify(data.data));
+                Swal.fire({
+                    title: data.message,
+                    icon: "success",
+                    allowOutsideClick: false,
+                    confirmButtonText: "確定"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#loginModal").modal("hide");
+                        $("#s02_username_text").removeClass("d-none").text(data.data.Username);
+                        var userPhotoUrl = "uploads/users/" + data.data.Userphoto;
+                        $("#navbarDropdownMenuAvatar img").attr("src", userPhotoUrl);
+                        $("#s02_avatar_section").removeClass("d-none");
+                        $("#s02_reg_btn").addClass("d-none");
+                        $("#s02_login_btn").addClass("d-none");
+                        $("#s02_login_show").removeClass("d-none");
+                        $("#s02_logout_btn").removeClass("d-none");
+                        $("#control_panel_btn").removeClass("d-none");
+                        setCookie("Uid01", data.data.Uid01, 7);
+                        window.location.href = "Mao-index_v1.html?timestamp=" + new Date().getTime();
+                    }
+                });
+            } else {
+                if (data.message === '此帳號已被停權，請聯繫客服') {
+                    Swal.fire({
+                        title: "帳號被停權",
+                        text: "此帳號已被停權，請聯繫客服以了解詳情。",
+                        icon: "error",
+                        allowOutsideClick: false,
+                        confirmButtonText: "確定"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "Mao-index_v1.html?timestamp=" + new Date().getTime();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: data.message,
+                        icon: "error",
+                    });
+                }
+            }
+        }
+
+        function showdata_checkuid(data) {
+            if (data.state) {
+                localStorage.setItem('user', JSON.stringify(data.data));
+
+                $("#s02_username_text").removeClass("d-none");
+                $("#s02_username_text").text(data.data.Username);
+                var userPhotoUrl = "uploads/users/" + data.data.Userphoto;
+                $("#navbarDropdownMenuAvatar img").attr("src", userPhotoUrl);
+                $("#s02_avatar_section").removeClass("d-none");
+
+                $("#s02_reg_btn").addClass("d-none");
+                $("#s02_login_btn").addClass("d-none");
+
+                $("#s02_login_show").removeClass("d-none");
+
+                $("#s02_logout_btn").removeClass("d-none");
+            }
+        }
+
+        function showdata_checkuni(data) {
+            if (data.state) {
+                $("#username_reg").removeClass("is-invalid");
+                $("#username_reg").addClass("is-valid");
+                $("#regModal_username_valid_feedback").text(data.message);
+                flag_username_reg = true;
+            } else {
+                $("#username_reg").removeClass("is-valid");
+                $("#username_reg").addClass("is-invalid");
+                $("#regModal_username_invalid_feedback").text(data.message);
+                flag_username_reg = false;
+            }
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        function getCookie(cname) {
+            let name = cname + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+    </script>
+    <script>
+        const App = {
+            data() {
+                return {
+                    products: [],
+                    filteredProducts: [],
+                    selectedCategory: 'all',
+                    cartItems: [],
+                    currentSlide: 0,
+                    itemsPerPage: 10,
+                    itemsPerSlide: 1,
+                    visibleItems: 4,
+                    user: {
+                        User_id: null,
+                        Username: '',
+                        Email: '',
+                        Region: '',
+                        Userphoto: '',
+                        Level: null,
+                        Uid01: ''
+                    }
+                };
+            },
+            computed: {
+                uniqueCategories() {
+                    const activeProducts = this.products.filter(item => item.Pstatus === 'Y');
+                    const categories = [...new Set(activeProducts.map(item => item.Ptype))];
+                    return categories;
+                },
+                displayedProducts() {
+                    return this.filteredProducts.slice(0, this.itemsPerPage);
+                },
+                totalSlides() {
+                    const totalItems = this.filteredProducts.length > 10
+                        ? this.displayedProducts.length + 1
+                        : this.displayedProducts.length;
+                    return Math.max(0, totalItems - this.visibleItems);
+                },
+                totalCartQuantity() {
+                    return this.cartItems.reduce((total, item) => total + (item.quantity || 0), 0);
+                }
+            },
+            mounted() {
+                this.fetchProducts();
+                this.loadCartFromStorage();
+                this.loadUserFromStorage();
+                window.addEventListener('scroll', this.handleScroll);
+                if (!getCookie("Uid01")) {
+                    this.cartItems = [];
+                    $("#navbarDropdownCart").closest('.dropdown').hide();
+                }
+            },
+            beforeUnmount() {
+                window.removeEventListener('scroll', this.handleScroll);
+            },
+            methods: {
+                fetchProducts() {
+                    fetch('mao-products-control-api_v1.php?action=getalldata') 
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.state) {
+                                this.products = data.data;
+                                this.filteredProducts = this.products.filter(item => item.Pstatus === 'Y');
+                            } else {
+                                Swal.fire({
+                                    title: '無法獲取商品資料',
+                                    text: data.message,
+                                    icon: 'error'
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            Swal.fire({
+                                title: '無法獲取商品資料',
+                                text: '請稍後再試',
+                                icon: 'error'
+                            });
+                        });
+                },
+                filterCategory(category) {
+                    this.selectedCategory = category;
+                    const activeProducts = this.products.filter(item => item.Pstatus === 'Y');
+                    if (category === 'all') {
+                        this.filteredProducts = [...activeProducts];
+                    } else {
+                        this.filteredProducts = activeProducts.filter(item => item.Ptype === category);
+                    }
+                },
+                addToCart(item) {
+                    const existingItem = this.cartItems.find(cartItem => cartItem.Product_id === item.Product_id);
+                    if (existingItem) {
+                        existingItem.quantity = (existingItem.quantity || 0) + 1; 
+                    } else {
+                        this.cartItems.push({ ...item, quantity: 1 }); 
+                    }
+                    Swal.fire({
+                        title: `${item.Pname} 已加入購物車`,
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                },
+                removeFromCart(productId) {
+                    this.cartItems = this.cartItems.filter(item => item.Product_id !== productId);
+                    Swal.fire({
+                        title: '已從購物車移除',
+                        icon: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                },
+                loadCartFromStorage() {
+                    const storedCart = localStorage.getItem('cartItems');
+                    if (storedCart && getCookie("Uid01")) {
+                        this.cartItems = JSON.parse(storedCart);
+                        $("#navbarDropdownCart").closest('.dropdown').show(); 
+                    } else {
+                        this.cartItems = [];
+                        $("#navbarDropdownCart").closest('.dropdown').hide();
+                    }
+                },
+                loadUserFromStorage() {
+                    const storedUser = localStorage.getItem('user');
+                    if (storedUser && getCookie("Uid01")) { 
+                        this.user = JSON.parse(storedUser);
+                    } else {
+                        this.user = {
+                            User_id: null,
+                            Username: '',
+                            Email: '',
+                            Region: '',
+                            Userphoto: '',
+                            Level: null,
+                            Uid01: ''
+                        };
+                        localStorage.removeItem('user');
+                    }
+                },
+                categoryName(category) {
+                    const names = {
+                        'toys': '寵物玩具',
+                        'beds': '寵物窩',
+                        'accessories': '配件'
+                    };
+                    return names[category] || category;
+                },
+                slideLeft() {
+                    if (this.currentSlide > 0) {
+                        this.currentSlide--;
+                        this.updateSlider();
+                    }
+                },
+                slideRight() {
+                    if (this.currentSlide < this.totalSlides) {
+                        this.currentSlide++;
+                        this.updateSlider();
+                    }
+                },
+                updateSlider() {
+                    const sliderContent = document.querySelector('.slider-content');
+                    const slideWidth = sliderContent.querySelector('.col-lg-3').offsetWidth;
+                    sliderContent.style.transform = `translateX(-${this.currentSlide * slideWidth}px)`;
+                },
+                scrollToTop() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                },
+                handleScroll() {
+                    const backToTopButton = document.getElementById('back-to-top');
+                    if (window.scrollY > 300) {
+                        backToTopButton.classList.add('visible');
+                    } else {
+                        backToTopButton.classList.remove('visible');
+                    }
+                },
+                increaseQuantity(item) {
+                    item.quantity = (item.quantity || 0) + 1;
+                },
+                decreaseQuantity(item) {
+                    if (item.quantity > 1) {
+                        item.quantity -= 1;
+                    } else {
+                        this.removeFromCart(item.Product_id);
+                    }
+                },
+                removeFromCart(productId) {
+                    this.cartItems = this.cartItems.filter(item => item.Product_id !== productId);
+                    Swal.fire({
+                        title: '已從購物車移除',
+                        icon: 'info',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
+            },
+            watch: {
+                selectedCategory(newCategory) {
+                    this.filterCategory(newCategory);
+                    this.currentSlide = 0;
+                    this.updateSlider();
+                },
+                cartItems: {
+                    handler(newCart) {
+                        if (getCookie("Uid01")) { 
+                            localStorage.setItem('cartItems', JSON.stringify(newCart));
+                        }
+                    },
+                    deep: true
+                }
+            }
+        };
+
+        Vue.createApp(App).mount('#app');
+    </script>
+</body>
+
+</html>
