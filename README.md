@@ -30,7 +30,6 @@
    ![報表分析](images/git-img/mao-chart.png)  
    *提供銷售趨勢與會員分佈圖表*
 
-*（建議：請提供實際截圖並上傳至 GitHub 倉庫，將上述占位符 URL 替換為真實路徑，例如 `![會員列表](screenshots/users-control-panel.png)`）*
 
 ---
 
