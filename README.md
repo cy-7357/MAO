@@ -10,43 +10,6 @@
 
 ---
 
-## 頁面展示 🖼️
-
-以下是專案的主要頁面展示，分為前台與後台兩部分：
-
-### 前台頁面 🌍
-1. **前台首頁** 🏠  
-   ![前台首頁](images/git-img/mao-index.png)  
-   *展示平台核心內容與導航，提供直觀的用戶入口*
-
-2. **會員中心** 👤  
-   ![會員中心](images/git-img/mao-profile.png)  
-   *用戶可查看個人資料、訂單記錄並進行帳戶管理*
-
-3. **商品購物車** 🛒  
-   ![商品購物車](images/git-img/mao-product.png)  
-   *顯示已選商品並支援結帳與修改購物內容*
-
-### 後台頁面 ⚙️
-1. **會員管理** 👥  
-   ![會員管理](images/git-img/mao-user-control.png)  
-   *顯示會員列表並支援篩選與編輯*
-
-2. **商品管理** 📦  
-   ![商品管理](images/git-img/mao-product-control.png)  
-   *展示商品資訊並支援新增與更新*
-
-3. **訂單管理** 📋  
-   ![訂單管理](images/git-img/mao-order-control.png)  
-   *以手風琴方式展示訂單詳情並支援狀態更新*
-
-4. **報表管理** 📊  
-   ![報表管理](images/git-img/mao-chart.png)  
-   *提供銷售趨勢與會員分佈圖表*
-
-
----
-
 ## 專案技術 💻
 
 本專案採用現代化的前端與後端技術棧，確保高效能與良好的用戶體驗。
@@ -105,6 +68,49 @@
 - **響應式設計** 📱: 適配桌面與行動裝置。
 - **數據可視化** 📉: 報表頁面提供折線圖、圓餅圖等分析工具。
 - **即時互動** ⚡: 使用 Vue.js 實現動態更新，SweetAlert2 提供友善提示。
+
+---
+
+## 頁面展示 🖼️
+
+以下是專案的主要頁面展示，分為前台與後台兩部分：
+
+### 前台頁面 🌍
+1. **前台首頁** 🏠  
+   ![前台首頁](images/git-img/mao-index.png)  
+   *展示平台核心內容與導航，提供直觀的用戶入口*
+
+2. **會員中心** 👤  
+   ![會員中心](images/git-img/mao-profile.png)  
+   *用戶可查看個人資料、訂單記錄並進行帳戶管理*
+
+3. **商品購物車** 🛒  
+   ![商品購物車](images/git-img/mao-product.png)  
+   *顯示已選商品並支援結帳與修改購物內容*
+
+### 後台頁面 ⚙️
+1. **會員管理** 👥  
+   ![會員管理](images/git-img/mao-user-control.png)  
+   *顯示會員列表並支援篩選與編輯*
+
+2. **商品管理** 📦  
+   ![商品管理](images/git-img/mao-product-control.png)  
+   *展示商品資訊並支援新增與更新*
+
+3. **訂單管理** 📋  
+   ![訂單管理](images/git-img/mao-order-control.png)  
+   *以手風琴方式展示訂單詳情並支援狀態更新*
+
+4. **報表管理** 📊  
+   ![報表管理](images/git-img/mao-chart.png)  
+   *提供銷售趨勢與會員分佈圖表*
+
+---
+
+## Figma Prototype 🔗
+
+想了解更多設計細節？請查看以下 Figma 原型連結：  
+👉 [MAOMAO Project Prototype](https://www.figma.com/proto/VjX8SG3qy9NFmw7HpA3zMg/MAOMAO-project?node-id=4029-627&t=pDeKKYDPtCn7PKBM-0&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=4029%3A627)
 
 ---
 
